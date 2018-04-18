@@ -1,3 +1,6 @@
 Inode size is 152 bytes
 
 Note: for read/write operations, use block_read and block_write (see block.c)
+
+When is init called?
+Does file system reset on every call?
