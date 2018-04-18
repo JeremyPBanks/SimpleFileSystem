@@ -1,0 +1,29 @@
+
+sfs_init()
+    conn:
+    proto_major = 7
+    proto_minor = 22
+    async_read = 1
+    max_write = 131072
+    max_readahead = 131072
+    capable = 00000ffb
+    want = 00000010
+    context:
+    fuse = 0070e4c0
+    uid = 0
+    gid = 0
+    pid = 0
+    private_data = 0070e010
+    logfile = 0070e030
+    diskfile = /.freespace/laf224/testfsfile
+    umask = 00000
+Reporting from init
+Reporting from getattr
+
+sfs_getattr(path="/.Trash", statbuf=0xb9a3cc40)
+Reporting from getattr
+
+sfs_getattr(path="/.Trash-85014", statbuf=0xb923bc40)
+Reporting from destroy
+
+sfs_destroy(userdata=0x0070e010)
