@@ -52,7 +52,7 @@ void *sfs_init(struct fuse_conn_info *conn)
 
     char buffer[BLOCK_SIZE];
 
-    //read first byte(s) from file system. block_read will return 0 if block is empty
+    //Read first byte(s) from file system. block_read() will return 0 if block is empty
     if(!block_read(0, buffer))
     {
 	//initialize file system
