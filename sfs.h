@@ -18,4 +18,6 @@ typedef struct super
 	unsigned short inode_bmap;
 	unsigned short data_bmap;
 	static unsigned int system_size; //16MB
-}super; 
+}super;
+
+void setMetadata(); //initialize metadata for first use of filesystem

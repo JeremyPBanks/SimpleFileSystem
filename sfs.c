@@ -48,15 +48,23 @@
  */
 void *sfs_init(struct fuse_conn_info *conn)
 {
+    disk_open("/.freespace/laf224/testfsfile");
+
+    char buffer[BLOCK_SIZE];
+
+    //read first byte(s) from file system. block_read will return 0 if block is empty
+    if(!block_read(0, buffer))
+    {
+	//initialize file system
+	setMetadata();
+    }
+
     fprintf(stderr, "in bb-init\n");
     log_msg("\nsfs_init()\n");
 
     
     log_conn(conn);
     log_fuse_context(fuse_get_context());
-
-    
-
 
     return SFS_DATA;
 }
@@ -71,6 +79,7 @@ void *sfs_init(struct fuse_conn_info *conn)
 void sfs_destroy(void *userdata)
 {
     log_msg("\nsfs_destroy(userdata=0x%08x)\n", userdata);
+    disk_close();
 }
 
 /** Get file attributes.

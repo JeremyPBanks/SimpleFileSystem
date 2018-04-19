@@ -27,6 +27,8 @@ void disk_open(const char* diskfile_path)
 	perror("disk_open failed");
 	exit(EXIT_FAILURE);
     }
+
+    log_msg("Opened disk\n");
 }
 
 void disk_close()
@@ -34,6 +36,8 @@ void disk_close()
     if(diskfile >= 0){
 	close(diskfile);
     }
+
+    log_msg("Closed disk\n");
 }
 
 /** Read a block from an open file
