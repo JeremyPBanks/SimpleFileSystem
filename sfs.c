@@ -92,6 +92,9 @@ int sfs_getattr(const char *path, struct stat *statbuf)
 {
     int retstat = 0;
     char fpath[PATH_MAX];
+    strcpy(fpath, path);
+
+    inode i = get_inode(fpath);
     
     log_msg("\nsfs_getattr(path=\"%s\", statbuf=0x%08x)\n",
 	  path, statbuf);
@@ -355,4 +358,54 @@ int main(int argc, char *argv[])
     fprintf(stderr, "fuse_main returned %d\n", fuse_stat);
     
     return fuse_stat;
+}
+
+void setMetadata()
+{
+    //fill in super struct
+
+
+}
+
+inode get_inode(char *path, int root_inode)
+{
+    //TODO: L: I'll make this recursive for now, we'll see if we can change that later
+
+    inode tgt;
+
+    //skip starting slash to avoid directory confusion (i.e. starting vs. not starting from root
+    if(path[0] == '/')
+    {path++;}
+
+    //base case
+    if(strstr(path, "/") == NULL)
+    {
+	log_msg("Searching for file '%s'.\n", path);
+	//TODO: read directory here, get inode
+
+	//tgt = ???
+	return tgt;
+    }
+
+    /*INODE-SEARCH STEPS*/
+    /*
+	-read path up to first slash
+	-search current directory (given by root_inode) for filename
+	-translate filename to inode
+	-'increment' path string to next slash (use strstr?)
+	-[FOR NOW] recurse with new path & root_inode
+    */
+
+    char *newpath = strstr(path, "/") + 1;
+    char filename[PATH_MAX];
+    int i = newpath - path - 1;
+    memcpy(filename, path, i);
+
+    int newroot;
+    //TODO: block reading to get new inode # here
+
+
+    log_msg("Searching for folder '%s' [name size %d] in path '%s'.\n", filename, i, path);
+
+    return get_inode(newpath, newroot);
 }

@@ -21,3 +21,4 @@ typedef struct super
 }super;
 
 void setMetadata(); //initialize metadata for first use of filesystem
+inode get_inode(char*, int); //given a file path and starting inode (directory), traverse directories to find inode
