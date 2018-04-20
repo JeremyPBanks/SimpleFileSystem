@@ -2,23 +2,26 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
+#define SYSTEM_SIZE (16 * 1024 * 1024)
+#define INODE_SIZE 160
+#define INODE_COUNT 
+#define BLOCK_COUNT (SYSTEM_SIZE/512)
+
+
 typedef struct inode
 {
 	struct stat info; //see stat struct man page
-	unsigned int index; //it's the same size either way
+	unsigned char direct[12];
+	unsigned char indirect[4];
 }inode;
 
 typedef struct super
 {
-	unsigned char data_start; //start of data region
-	unsigned short inode_count; //512 inodes
-	unsigned short block_count; //16MB / 512B
-	unsigned short block_size; //512B
-	unsigned short freeBlocks;
-	unsigned short inode_bmap;
-	unsigned short data_bmap;
-	static unsigned int system_size; //16MB
+	unsigned char inode_bitmap[64];
+	unsigned char data_bitmap[4074]; //TODO: might lower this at some point (by 1)
 }super;
+
+super superBlock;
 
 void setMetadata(); //initialize metadata for first use of filesystem
 inode get_inode(char*, int); //given a file path and starting inode (directory), traverse directories to find inode

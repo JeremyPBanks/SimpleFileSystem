@@ -53,10 +53,21 @@ void *sfs_init(struct fuse_conn_info *conn)
     char buffer[BLOCK_SIZE];
 
     //Read first byte(s) from file system. block_read() will return 0 if block is empty
-    if(!block_read(0, buffer))
+    int readstat = block_read(0, buffer);
+    if(readstat == 0)
     {
 	//initialize file system
 	setMetadata();
+
+        //create root folder
+	const char *rootData = "0&.\n";
+	block_write(168, rootData);
+    }
+
+    else if(readstat < 0)
+    {
+	log_msg("Failed to initialize sfs.\n");
+	exit(EXIT_FAILURE);
     }
 
     fprintf(stderr, "in bb-init\n");
@@ -95,6 +106,8 @@ int sfs_getattr(const char *path, struct stat *statbuf)
     strcpy(fpath, path);
 
     inode i = get_inode(fpath);
+
+    *statbuf = i.info;
     
     log_msg("\nsfs_getattr(path=\"%s\", statbuf=0x%08x)\n",
 	  path, statbuf);
@@ -363,8 +376,28 @@ int main(int argc, char *argv[])
 void setMetadata()
 {
     //fill in super struct
+    super superBlock;
 
+    superBlock.data_bitmap[0] = 0x7f;
+    superBlock.inode_bitmap[0] = 0x7f;
+    int i;
+    for (i=1;i<4074;i++)
+    {
+    	superBlock.data_bitmap[i] = 0xff;
+    }
+    for (i=1;i<64;i++)
+    {
+    	superBlock.inode_bitmap[i] = 0xff;
+    }
 
+    //write super block to flat file
+    block_write(0, &superBlock);
+
+    //fill in root inode
+    inode root_inode;
+    root_inode.info.st_ino = 0;
+    root_inode.info.st_mode = S_IFDIR & S_IFMT;
+    root_inode.info.st_nlink = 1;
 }
 
 inode get_inode(char *path, int root_inode)
