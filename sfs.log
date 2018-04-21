@@ -1,9 +1,7 @@
 Opened disk
 Block_read ret: 0
 Readstat: 0
-Block_read ret: 512
-Expected value at block 8: 
-Initialized root inode. Write status: 512 Read status: 512 Value: 
+After block write
 Back from metadata init
 Bstat after write: 512
 Block_read ret: 512
@@ -21,20 +19,17 @@ sfs_init()
     capable = 00000ffb
     want = 00000010
     context:
-    fuse = 020414c0
+    fuse = 015ba4c0
     uid = 0
     gid = 0
     pid = 0
-    private_data = 02041010
-    logfile = 02041030
+    private_data = 015ba010
+    logfile = 015ba030
     diskfile = /.freespace/laf224/testfsfile
     umask = 00000
 Searching for file '.Trash'.
 
-sfs_getattr(path="/.Trash", statbuf=0xb5c22c40)
+sfs_getattr(path="/.Trash", statbuf=0x2a646c40)
 Searching for file '.Trash-85014'.
 
-sfs_getattr(path="/.Trash-85014", statbuf=0xb5421c40)
-
-sfs_destroy(userdata=0x02041010)
-Closed disk
+sfs_getattr(path="/.Trash-85014", statbuf=0x29e45c40)

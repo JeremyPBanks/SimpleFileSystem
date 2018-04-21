@@ -391,7 +391,7 @@ void setMetadata()
     superBlock.data_bitmap[0] = 0x7f;
     superBlock.inode_bitmap[0] = 0x7f;
     int i;
-    for (i=1;i<4074;i++)
+    for (i=1;i<4073;i++)
     {
     	superBlock.data_bitmap[i] = 0xff;
     }
@@ -419,7 +419,16 @@ void setMetadata()
     root_inode.info.st_rdev = 0;
     root_inode.info.st_size = 5; //see string in init()
     root_inode.direct[0] = DATA_START;
-    
+
+    for(i = 1; i < 10; i++)
+    {
+	root_inode.direct[i] = 0;
+    }
+
+    for(i = 0; i < 2; i++)
+    {
+        root_inode.indirect[i] = 0;
+    }
 
     //get current time
     struct timespec time;
@@ -431,15 +440,8 @@ void setMetadata()
     root_inode.info.st_blksize = BLOCK_SIZE;
     root_inode.info.st_blocks = 1;
 
-    root_inode.direct[0] = DATA_START;
-
-    int bstat = block_write(root_inode.info.st_ino, (void*)&root_inode);
-
-    char buf[PATH_MAX];
-    int bstat2 = block_read(INODE_START, buf);
-
-    log_msg("Expected value at block %u: %s\n", root_inode.info.st_ino, (void*)&root_inode);
-    log_msg("Initialized root inode. Write status: %d Read status: %d Value: %s\n", bstat, bstat2, buf);
+    write_to_file(root_inode);
+    
 }
 
 inode get_inode(char *path, int root_inode)
@@ -484,3 +486,103 @@ inode get_inode(char *path, int root_inode)
 
     return get_inode(newpath, newroot);
 }
+
+void write_to_file(inode insert_inode)
+{
+    char *rootString;
+    asprintf(&rootString, "%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t", insert_inode.info.st_dev, insert_inode.info.st_ino, insert_inode.info.st_mode, insert_inode.info.st_nlink, insert_inode.info.st_uid, insert_inode.info.st_gid, insert_inode.info.st_rdev, insert_inode.info.st_size, insert_inode.direct[0], insert_inode.direct[1], insert_inode.direct[2], insert_inode.direct[3], insert_inode.direct[4], insert_inode.direct[5], insert_inode.direct[6], insert_inode.direct[7], insert_inode.direct[8], insert_inode.direct[9], insert_inode.direct[10], insert_inode.direct[11], insert_inode.indirect[0], insert_inode.indirect[1], insert_inode.info.st_atime, insert_inode.info.st_mtime, insert_inode.info.st_ctime, insert_inode.info.st_blksize, insert_inode.info.st_blocks);
+
+    int bstat = block_write(INODE_START, rootString);
+    log_msg("After block write\n");
+    free(rootString);
+}
+
+
+void read_from_file(inode read_inode)
+{
+    inode testnode;
+
+    char buf[PATH_MAX];
+    int bstat2 = block_read(read_inode.info.st_ino, buf);
+    log_msg("After block read\n");
+    char *token = strtok(buf, "\t");
+    log_msg("About to tokenize...\n");
+
+    log_msg("Atoi...\n");
+    testnode.info.st_dev = atoi(token);
+    log_msg("strtok...\n");
+    token = strtok(NULL, "\t");
+    log_msg("CRASH...\n");
+    testnode.info.st_ino = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.info.st_mode = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.info.st_nlink = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.info.st_uid = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.info.st_gid = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.info.st_rdev = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.info.st_size = atoi(token);
+    token = strtok(NULL, "\t");
+    log_msg("First Direct\n");
+    testnode.direct[0] = atoi(token);
+    token = strtok(NULL, "\t");
+    log_msg("Second Direct\n");
+    testnode.direct[1] = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.direct[2] = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.direct[3] = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.direct[4] = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.direct[5] = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.direct[6] = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.direct[7] = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.direct[8] = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.direct[9] = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.direct[10] = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.direct[11] = atoi(token);
+    token = strtok(NULL, "\t");
+    log_msg("Indirect Time!\n");
+    testnode.indirect[0] = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.indirect[1] = atoi(token);
+    token = strtok(NULL, "\t");
+
+    log_msg("Time, Mr. Freeman?\n");
+    testnode.info.st_atime = atoi(token);
+    token = strtok(NULL, "\t");
+    log_msg("Game Scientist\n");
+    testnode.info.st_mtime = atoi(token);
+    token = strtok(NULL, "\t");
+    testnode.info.st_ctime = atoi(token);
+    log_msg("Black Mesa\n");
+    token = strtok(NULL, "\t");
+    testnode.info.st_blksize = atoi(token);
+    token = strtok(NULL, "\t");
+    log_msg("Dog\n");
+    testnode.info.st_blocks = atoi(token);
+    
+    log_msg("Just tokenized!\n");
+/*
+    bzero(rootString, 512);
+
+    asprintf(&rootString, "%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t", testnode.info.st_dev, testnode.info.st_ino, testnode.info.st_mode, testnode.info.st_nlink, testnode.info.st_uid, testnode.info.st_gid, testnode.info.st_rdev, testnode.info.st_size, testnode.direct[0], testnode.direct[1], testnode.direct[2], testnode.direct[3], testnode.direct[4], testnode.direct[5], testnode.direct[6], testnode.direct[7], testnode.direct[8], testnode.direct[9], testnode.direct[10], testnode.direct[11], testnode.indirect[0], testnode.indirect[1], testnode.info.st_atime, testnode.info.st_mtime, testnode.info.st_ctime, testnode.info.st_blksize, testnode.info.st_blocks);
+    
+
+    log_msg("Expected value at block %u: %s\n", testnode.info.st_ino, rootString);
+*/
+    //free(rootString);
+}
+
+
