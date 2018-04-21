@@ -5,3 +5,5 @@ Note: for read/write operations, use block_read and block_write (see block.c)
 1:1 ratio of files to inodes
 
 n-indirect inodes will be implicit; indirect pointer goes to another inode struct. Don't differentiate between singly-indiriect, doubly-indirect, etc.
+
+Start of data region = block # 179: 8(Super) + 171(inodes)

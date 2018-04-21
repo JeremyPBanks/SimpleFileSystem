@@ -28,6 +28,7 @@
 #endif
 
 #include "log.h"
+#include "sfs.h"
 
 
 ///////////////////////////////////////////////////////////
@@ -49,19 +50,29 @@
 void *sfs_init(struct fuse_conn_info *conn)
 {
     disk_open("/.freespace/laf224/testfsfile");
-
+    int bstat;
     char buffer[BLOCK_SIZE];
 
     //Read first byte(s) from file system. block_read() will return 0 if block is empty
     int readstat = block_read(0, buffer);
+    log_msg("Readstat: %d\n",readstat);
     if(readstat == 0)
     {
 	//initialize file system
 	setMetadata();
-
+	log_msg("Back from metadata init\n");
         //create root folder
-	const char *rootData = "0&.\n";
-	block_write(168, rootData);
+	//char *rootData = "0&.\n";
+	char rootData[PATH_MAX];
+	strcpy(rootData, "0&.\n");
+	bstat = block_write(DATA_START, rootData);
+	log_msg("Bstat after write: %d\n", bstat);
+
+	bzero(rootData, PATH_MAX);
+	bstat = block_read(DATA_START, rootData);
+	log_msg("Bstat after read: %d\n", bstat);
+
+	log_msg("Root data: %s\n", rootData);
     }
 
     else if(readstat < 0)
@@ -105,7 +116,7 @@ int sfs_getattr(const char *path, struct stat *statbuf)
     char fpath[PATH_MAX];
     strcpy(fpath, path);
 
-    inode i = get_inode(fpath);
+    inode i = get_inode(fpath, 0);
 
     *statbuf = i.info;
     
@@ -143,7 +154,6 @@ int sfs_unlink(const char *path)
     int retstat = 0;
     log_msg("sfs_unlink(path=\"%s\")\n", path);
 
-    
     return retstat;
 }
 
@@ -392,12 +402,44 @@ void setMetadata()
 
     //write super block to flat file
     block_write(0, &superBlock);
+/*
+    char buff[PATH_MAX];
+    block_read(0, buff);
+    log_msg("Super data: %s\n", buff);
+*/
 
     //fill in root inode
     inode root_inode;
-    root_inode.info.st_ino = 0;
-    root_inode.info.st_mode = S_IFDIR & S_IFMT;
+    root_inode.info.st_dev = 0;
+    root_inode.info.st_ino = INODE_START;
+    root_inode.info.st_mode = (S_IFDIR & S_IFMT) | (S_IRWXU) | (S_IRWXO); //TODO: fix this up at some point
     root_inode.info.st_nlink = 1;
+    root_inode.info.st_uid = 0;
+    root_inode.info.st_gid = 0;
+    root_inode.info.st_rdev = 0;
+    root_inode.info.st_size = 5; //see string in init()
+    root_inode.direct[0] = DATA_START;
+    
+
+    //get current time
+    struct timespec time;
+    clock_gettime(CLOCK_REALTIME, &time);
+    root_inode.info.st_atime = time.tv_sec;
+    root_inode.info.st_mtime = time.tv_sec;
+    root_inode.info.st_ctime = time.tv_sec;
+
+    root_inode.info.st_blksize = BLOCK_SIZE;
+    root_inode.info.st_blocks = 1;
+
+    root_inode.direct[0] = DATA_START;
+
+    int bstat = block_write(root_inode.info.st_ino, (void*)&root_inode);
+
+    char buf[PATH_MAX];
+    int bstat2 = block_read(INODE_START, buf);
+
+    log_msg("Expected value at block %u: %s\n", root_inode.info.st_ino, (void*)&root_inode);
+    log_msg("Initialized root inode. Write status: %d Read status: %d Value: %s\n", bstat, bstat2, buf);
 }
 
 inode get_inode(char *path, int root_inode)
