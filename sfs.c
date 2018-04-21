@@ -31,6 +31,12 @@
 #include "sfs.h"
 
 
+/*--------GLOBALS----------*/
+inode currentNode;
+inode rootNode;
+
+/*-------------------------*/
+
 ///////////////////////////////////////////////////////////
 //
 // Prototypes for all these functions, and the C-style comments,
@@ -64,7 +70,7 @@ void *sfs_init(struct fuse_conn_info *conn)
         //create root folder
 	//char *rootData = "0&.\n";
 	char rootData[PATH_MAX];
-	strcpy(rootData, "0&.\n");
+	strcpy(rootData, "0\t.\n");
 	bstat = block_write(DATA_START, rootData);
 	log_msg("Bstat after write: %d\n", bstat);
 
@@ -116,7 +122,12 @@ int sfs_getattr(const char *path, struct stat *statbuf)
     char fpath[PATH_MAX];
     strcpy(fpath, path);
 
-    inode i = get_inode(fpath, 0);
+    inode start;
+    if(fpath[0] == '/')
+    {start = rootNode;}
+    else
+    {start = currentNode;}
+    inode i = get_inode(fpath, start);
 
     *statbuf = i.info;
     
@@ -441,13 +452,12 @@ void setMetadata()
     root_inode.info.st_blocks = 1;
 
     write_to_file(root_inode);
-    
+    rootNode = root_inode;
 }
 
-inode get_inode(char *path, int root_inode)
+inode get_inode(char *path, inode root_inode)
 {
     //TODO: L: I'll make this recursive for now, we'll see if we can change that later
-
     inode tgt;
 
     //skip starting slash to avoid directory confusion (i.e. starting vs. not starting from root
@@ -477,14 +487,25 @@ inode get_inode(char *path, int root_inode)
     char filename[PATH_MAX];
     int i = newpath - path - 1;
     memcpy(filename, path, i);
-
-    int newroot;
-    //TODO: block reading to get new inode # here
-
-
+    filename[i] = '\0';
+    
     log_msg("Searching for folder '%s' [name size %d] in path '%s'.\n", filename, i, path);
 
-    return get_inode(newpath, newroot);
+    char buffer[PATH_MAX], readbuff[BLOCK_SIZE];
+    buffer[0] = '\0';
+    int len = ceil((double)root_inode.info.st_size/BLOCK_SIZE);
+
+    //TODO: for now, assume directories won't require indirect inodes. Fix this later
+    for(i = 0; i < len; i++)
+    {
+	block_read(root_inode.direct[i], readbuff);
+	strcat(buffer, readbuff);
+	bzero(readbuff, BLOCK_SIZE);
+    }
+
+    //TODO: parse string to get inode info here
+
+    return get_inode(newpath, newRoot);
 }
 
 void write_to_file(inode insert_inode)
@@ -498,12 +519,12 @@ void write_to_file(inode insert_inode)
 }
 
 
-void read_from_file(inode read_inode)
+inode read_from_file(int block)
 {
     inode testnode;
 
     char buf[PATH_MAX];
-    int bstat2 = block_read(read_inode.info.st_ino, buf);
+    int bstat = block_read(block, buf);
     log_msg("After block read\n");
     char *token = strtok(buf, "\t");
     log_msg("About to tokenize...\n");
@@ -574,15 +595,8 @@ void read_from_file(inode read_inode)
     testnode.info.st_blocks = atoi(token);
     
     log_msg("Just tokenized!\n");
-/*
-    bzero(rootString, 512);
 
-    asprintf(&rootString, "%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t%u\t", testnode.info.st_dev, testnode.info.st_ino, testnode.info.st_mode, testnode.info.st_nlink, testnode.info.st_uid, testnode.info.st_gid, testnode.info.st_rdev, testnode.info.st_size, testnode.direct[0], testnode.direct[1], testnode.direct[2], testnode.direct[3], testnode.direct[4], testnode.direct[5], testnode.direct[6], testnode.direct[7], testnode.direct[8], testnode.direct[9], testnode.direct[10], testnode.direct[11], testnode.indirect[0], testnode.indirect[1], testnode.info.st_atime, testnode.info.st_mtime, testnode.info.st_ctime, testnode.info.st_blksize, testnode.info.st_blocks);
-    
-
-    log_msg("Expected value at block %u: %s\n", testnode.info.st_ino, rootString);
-*/
-    //free(rootString);
+    return testnode;
 }
 
 

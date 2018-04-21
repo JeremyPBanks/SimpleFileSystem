@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <strings.h>
+#include <math.h>
 
 #define SYSTEM_SIZE (16 * 1024 * 1024)
 #define INODE_SIZE 168
@@ -27,6 +28,6 @@ typedef struct super
 super superBlock;
 
 void setMetadata(); //initialize metadata for first use of filesystem
-inode get_inode(char*, int); //given a file path and starting inode (directory), traverse directories to find inode
+inode get_inode(char*, inode); //given a file path and starting inode (directory), traverse directories to find inode
 void write_to_file(inode); //write inode to file
 void read_from_file(inode); //read data from file
