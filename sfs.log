@@ -1,12 +1,11 @@
 Opened disk
 Block_read ret: 0
 Readstat: 0
-After block write
 Back from metadata init
 Bstat after write: 512
 Block_read ret: 512
 Bstat after read: 512
-Root data: 0&.
+Root data: 8	.
 
 
 sfs_init()
@@ -19,17 +18,75 @@ sfs_init()
     capable = 00000ffb
     want = 00000010
     context:
-    fuse = 015ba4c0
+    fuse = 01abf4c0
     uid = 0
     gid = 0
     pid = 0
-    private_data = 015ba010
-    logfile = 015ba030
+    private_data = 01abf010
+    logfile = 01abf030
     diskfile = /.freespace/laf224/testfsfile
     umask = 00000
+fpath: /.Trash, path: /.Trash
+get_inode
+Path in get_inode: /.Trash
 Searching for file '.Trash'.
-
-sfs_getattr(path="/.Trash", statbuf=0x2a646c40)
+Block_read ret: 512
+Failed to find inode with path: .Trash
+fpath: /.Trash-85014, path: /.Trash-85014
+get_inode
+Path in get_inode: /.Trash-85014
 Searching for file '.Trash-85014'.
+Block_read ret: 512
+Failed to find inode with path: .Trash-85014
+fpath: /, path: /
+JUST CHANGED / TO /.
+get_inode
+Path in get_inode: /.
+Searching for file '.'.
+Block_read ret: 512
+fnameTgt: .Block_read ret: 512
+Atoi...
+strtok...
+CRASH...
+Just tokenized!
+myInode's number 8 and its first block is index 520.
+Block_read ret: 512
+Bruh, I just grabbed this inode: 8	.
 
-sfs_getattr(path="/.Trash-85014", statbuf=0x29e45c40)
+
+sfs_getattr(path="/", statbuf=0x83b83c10)
+fpath: /hello.txt, path: /hello.txt
+get_inode
+Path in get_inode: /hello.txt
+Searching for file 'hello.txt'.
+Block_read ret: 512
+Failed to find inode with path: hello.txt
+
+sfs_create(path="/hello.txt", mode=0100600, fi=0x83b83cf0)
+get_inode
+Path in get_inode: /hello.txt
+Searching for file 'hello.txt'.
+Block_read ret: 512
+Failed to find inode with path: hello.txt
+Block_read ret: 512
+Block_read ret: 512
+Block_read ret: 512
+Block_read ret: 512
+Block_read ret: 512
+Block_read ret: 512
+Block_read ret: 512
+Block_read ret: 512
+fpath: /hello.txt, path: /hello.txt
+get_inode
+Path in get_inode: /hello.txt
+Searching for file 'hello.txt'.
+Block_read ret: 512
+Failed to find inode with path: hello.txt
+
+sfs_release(path="/hello.txt", fi=0x83b83cf0)
+fpath: /hello.txt, path: /hello.txt
+get_inode
+Path in get_inode: /hello.txt
+Searching for file 'hello.txt'.
+Block_read ret: 512
+Failed to find inode with path: hello.txt

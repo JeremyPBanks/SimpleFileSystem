@@ -1,9 +1,34 @@
-Inode size is 152 bytes
+Inode size is 512 bytes (as far as we're concerned)
 
 Note: for read/write operations, use block_read and block_write (see block.c)
 
-1:1 ratio of files to inodes
+1:1 ratio of blocks to inodes
 
 n-indirect inodes will be implicit; indirect pointer goes to another inode struct. Don't differentiate between singly-indiriect, doubly-indirect, etc.
 
-Start of data region = block # 179: 8(Super) + 171(inodes)
+Start of data region = block # 520: 8(Super) + 512(inodes)
+
+ASSUME /tmp/laf224/mountdir will exist as a 'root' in test environment. PUT THIS IN THE README
+
+Add support for indirect inodes; right now we only use direct
+
+To Do Later: +  how do we handle empty blocks in the middle of a file?
+	     +  mkdir implementation ~ just call create with small modifications?
+
+Notes for emails:
+	-how do we handle current directories?
+	-DO we have to check if a path is to a file or directory?
+	-where is the root path?
+	-how does calling creat on an existing file change that file?
+	-how tf do we do link counting?
+	-what is this trash?
+	-how many of the stat struct members do we need to keep track of?
+
+
+ps -ef | grep sfs
+gdb attach 20319
+./sfs -s...
+
+Terminal Commands
+Traversal: cd
+Create File: touch

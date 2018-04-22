@@ -31,8 +31,10 @@ sfs.o: sfs.c /usr/include/stdc-predef.h params.h \
  /usr/include/bits/stdlib-float.h /usr/include/string.h \
  /usr/include/bits/string.h /usr/include/bits/string2.h \
  /usr/include/unistd.h /usr/include/bits/posix_opt.h \
- /usr/include/bits/environments.h /usr/include/bits/confname.h log.h \
- sfs.h /usr/include/strings.h
+ /usr/include/bits/environments.h /usr/include/bits/confname.h \
+ /usr/include/math.h /usr/include/bits/huge_val.h \
+ /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h \
+ /usr/include/bits/mathinline.h log.h sfs.h /usr/include/strings.h
 
 /usr/include/stdc-predef.h:
 
@@ -175,6 +177,16 @@ fuse.h:
 /usr/include/bits/environments.h:
 
 /usr/include/bits/confname.h:
+
+/usr/include/math.h:
+
+/usr/include/bits/huge_val.h:
+
+/usr/include/bits/mathdef.h:
+
+/usr/include/bits/mathcalls.h:
+
+/usr/include/bits/mathinline.h:
 
 log.h:
 
