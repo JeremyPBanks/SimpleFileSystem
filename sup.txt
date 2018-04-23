@@ -23,8 +23,8 @@ Notes for emails:
 	-how tf do we do link counting?
 	-what is this trash?
 	-how many of the stat struct members do we need to keep track of?
-
-
+	-bitch u gonna fuck us on cd root u motherfucker i will end u, so many ways to do it
+	-we're getting an error for calling touch in terminal, touch: setting times of 'file.c': Function not implemented
 ps -ef | grep sfs
 gdb attach 20319
 ./sfs -s...

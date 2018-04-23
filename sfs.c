@@ -34,6 +34,7 @@
 
 /*--------GLOBALS----------*/
 inode currentNode;
+inode parentNode;
 inode rootNode;
 int lastOPFlag;//0=Read,1=Write
 int fileFound;
@@ -139,7 +140,7 @@ int sfs_getattr(const char *path, struct stat *statbuf)
     else
     {start = currentNode;}*/
 
-    inode myInode = get_inode(fpath, start);
+    inode myInode = get_inode(fpath, start,0);
     if(!fileFound)
     {
         return -2; //file not found
@@ -183,21 +184,22 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
     char freeBit;
     int found = 0;
 
-    char pathCopy[PATH_MAX];
+    char *pathCopy = (char*)malloc(PATH_MAX);
     strcpy(pathCopy,path);
     //TODO: alter file permissions?
 
     //check if file exists
-    inode fileNode = get_inode(pathCopy, rootNode);
+    inode fileNode = get_inode(pathCopy, rootNode,0);
 
     if(!fileFound)//file doesn't exist
     {
 	    //make fileNode into new inode
+		log_msg("File does not exist\n");
 	    char *superBuff = read_super();
 	    memcpy(inodeMap, superBuff, 64);
 	    memcpy(dataMap, (superBuff + 64), 4031);
 	    char superCopyInode[64];
-	    char superCopyData[64];
+	    char superCopyData[4031];
 	    memcpy(superCopyInode,inodeMap,64);
 	    memcpy(superCopyData,dataMap,4031);
 	    int bitLoc = -1;
@@ -208,7 +210,7 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 	        for(j = 7; j >= 0; j--)
 	        {
 		        freeBit = superCopyInode[i] & 1;
-	            if(!freeBit)
+	            if(freeBit)
 	            {
 		            bitLoc = j;
 		            blockLoc = i;
@@ -256,7 +258,7 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 	    }
 
         int inodeBlock = (blockLoc*8) + bitLoc + INODE_START;
-
+		log_msg("blockLoc:%d,bitLoc:%d,inodeBlock:%d\n",blockLoc,bitLoc,inodeBlock);
 
         inode root_inode;
         root_inode.info.st_dev = 0;
@@ -272,7 +274,7 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 
         for(i = 1; i < 32; i++)
         {
-	    root_inode.direct[i] = 0;
+	    	root_inode.direct[i] = 0;
         }
 
         for(i = 0; i < 2; i++)
@@ -299,7 +301,7 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 	        for(j = 7; j >= 0; j--)
 	        {
 		        freeBit = superCopyData[i] & 1;
-	            if(!freeBit)
+	            if(freeBit)
 	            {
 		            bitLocData = j;
 		            blockLocData = i;
@@ -346,7 +348,7 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
             dataMap[blockLocData] &= 0xfe;
 	    }
 
-        int dataBlock = (bitLoc * 8) + (blockLoc + 520);
+        int dataBlock = (blockLocData * 8) + (bitLocData + 520);
         
         root_inode.direct[0] = dataBlock;
         write_to_file(root_inode);
@@ -360,9 +362,35 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
             block_write(i, insert_buffer + (BLOCK_SIZE * i));
         }
 
-        //TODO: update parent folder after insertion
+		log_msg("Just updated bit maps\n");
 
-	    free(superBuff);
+
+        //TODO: update parent folder after insertion
+		int myLen = strlen(pathCopy);
+		if (pathCopy[myLen-1] == '/')
+		{
+			pathCopy[myLen-1] = '\0';
+		}
+
+		char *dummy=pathCopy;
+
+		while(strstr(pathCopy,"/") != NULL)
+		{
+			pathCopy = strstr(pathCopy,"/") + 1;
+		}
+
+		log_msg("Path Copy, moment of truth: %s\n",pathCopy);
+		char directoryData[BLOCK_SIZE];
+		sprintf(directoryData,"%d\t%s\n",root_inode.info.st_ino,pathCopy);
+		fileFound = 1;
+		writeToDirectory(directoryData);
+		
+		log_msg("Just updated directory data\n");
+
+		free(superBuff);
+		log_msg("suoerBuff was freed\n");
+		free(dummy);
+		log_msg("pathCopy was freed\n");
     }
 
     else
@@ -408,15 +436,15 @@ int sfs_open(const char *path, struct fuse_file_info *fi)//0=fail,1=success
 
     inode start = rootNode;
 
-    char pathCopy[PATH_MAX];
+    char *pathCopy = (char*)malloc(PATH_MAX);
 
     strcpy(pathCopy,path);
 
-    inode checkInode = get_inode(pathCopy,start);
+    inode checkInode = get_inode(pathCopy,start,0);
 
     if (!fileFound)
     {
-	    return 0;
+	    return -2;
     }
 
     log_msg("\nsfs_open(path\"%s\", fi=0x%08x)\n",path, fi);
@@ -572,9 +600,42 @@ int sfs_opendir(const char *path, struct fuse_file_info *fi)
 int sfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offset,
 	       struct fuse_file_info *fi)
 {
+	log_msg("-----sfs_readdir-----\n");
     int retstat = 0;
-    
-    
+	struct stat fillMe;
+	int pathLen = strlen(path);
+	char myPathCopy[pathLen+1];
+	strcpy(myPathCopy,path);
+    log_msg("after strcpy, wtf is mypathcopy %s and path %s god wtf\n", myPathCopy, path);
+	inode myInode = get_inode(myPathCopy,rootNode,0);
+	log_msg("after get inode\n");
+	if (!fileFound)
+	{
+		return -ENOENT;
+	}
+
+	char* inodeAsString = get_buffer(myInode);
+    log_msg("after get buffer\n");
+	if (inodeAsString == NULL)
+	{
+		return retstat;
+	}
+	char* myFree = inodeAsString;
+	char* token = strtok(inodeAsString,"\n");
+	log_msg("after first strtok\n");
+	while(token != NULL)
+	{
+		char* myName=strstr(token,"\t")+1;
+		if(filler(buf,myName,&fillMe,0) != 0)
+		{
+			free(myFree);
+			return -ENOMEM;
+		}
+		token = strtok(NULL,"\n");
+    }
+    log_msg("after while loop\n");
+	free(myFree);
+	log_msg("after freeing\n");
     return retstat;
 }
 
@@ -707,7 +768,7 @@ void setMetadata()
     currentNode = root_inode;
 }
 
-inode get_inode(char *path, inode this_inode)
+inode get_inode(char *path, inode this_inode,int depth)
 {
     //TODO: L: I'll make this recursive for now, we'll see if we can change that later
     inode tgt;
@@ -717,31 +778,35 @@ inode get_inode(char *path, inode this_inode)
     fileFound = 1;
 
     log_msg("Path in get_inode: %s\n", path);
-
+	if(strcmp(path, "/") == 0)
+    {
+		parentNode = rootNode;
+    	return rootNode;
+    }
     if(strstr(path, ROOT_PATH) != NULL)//if root path exists in parameter
     {
-	log_msg("Chris: It'll never reach here!\n");
-	path += strlen(ROOT_PATH);
+		log_msg("Chris: It'll never reach here!\n");
+		path += strlen(ROOT_PATH);
     }
 
     //remove leading and trailing slashes
     if(path[0] == '/')
     {
-	path++;
+		path++;
     }
 
     if(path[strlen(path)-1] == '/')
     {
-	path[strlen(path)-1] = '\0';
+		path[strlen(path)-1] = '\0';
     }
 
     //base case
     if(strstr(path, "/") == NULL)
     {
-	log_msg("Searching for file '%s'.\n", path);
-	//TODO: read directory here, get inode
+		log_msg("Searching for file '%s'.\n", path);
+		//TODO: read directory here, get inode
 
-	char *bufferTgt = get_buffer(this_inode);
+		char *bufferTgt = get_buffer(this_inode);
 
         //parse string to find filename
         char *tokenTgt = strtok(bufferTgt, "\n");
@@ -774,6 +839,12 @@ inode get_inode(char *path, inode this_inode)
         }
 
         free(bufferTgt);
+
+		if (depth == 0)
+		{
+			parentNode = rootNode;
+		}
+
 	    return tgt;
     }
 
@@ -828,7 +899,8 @@ inode get_inode(char *path, inode this_inode)
 
     free(buffer);
     log_msg("Newpath is %s\n and tgt is %i", newpath, tgt.info.st_ino);
-    return get_inode(newpath, tgt);
+	parentNode = tgt;
+    return get_inode(newpath, tgt, depth+1);
 }
 
 void write_to_file(inode insert_inode)
@@ -857,7 +929,7 @@ inode read_from_file(int node)
     int bstat = block_read(node, buf);
     if(bstat < 0)
     {
-	log_msg("Failed to read from node %d.\n", node);
+		log_msg("Failed to read from node %d.\n", node);
     }
 
     char *token = strtok(buf, "\t");
@@ -885,8 +957,8 @@ inode read_from_file(int node)
 
     for(i = 0; i < 32; i++)
     {
-	testnode.direct[i] = atoi(token);
-	token = strtok(NULL, "\t");
+		testnode.direct[i] = atoi(token);
+		token = strtok(NULL, "\t");
     }
 
     //log_msg("Indirect Time!\n");
@@ -916,7 +988,8 @@ char* get_buffer(inode node)
 {
     if(!fileFound)
     {
-	return NULL;
+		log_msg("fileFound sucks\n");
+		return NULL;
     }
 
     int i;
@@ -927,11 +1000,12 @@ char* get_buffer(inode node)
     int bstat;
 
     //implementing a ceil()
+	
+
     if(node.info.st_size % BLOCK_SIZE > 0)
     {
 	len = (node.info.st_size/BLOCK_SIZE)+1;
     }
-
     else
     {
 	len = node.info.st_size/BLOCK_SIZE;
@@ -940,14 +1014,15 @@ char* get_buffer(inode node)
     //TODO: for now, assume directories won't require indirect inodes; total string size less than 32 * 512. (Maybe) fix this later
     for(i = 0; i < len; i++)
     {
-	bstat = block_read(node.direct[i], readbuff);
-	if(bstat < 0)
-	{
-	    log_msg("Failed to read block in get_buffer.\n");
-	}
-	buffer = realloc(buffer, BLOCK_SIZE * (i+1));
-	memcpy((buffer + (BLOCK_SIZE * i)), readbuff, BLOCK_SIZE);
-	bzero(readbuff, BLOCK_SIZE);
+		bstat = block_read(node.direct[i], readbuff);
+		log_msg("Yo, this is readbuff:%s\n",readbuff);
+		if(bstat < 0)
+		{
+			log_msg("Failed to read block in get_buffer.\n");
+		}
+		buffer = realloc(buffer, BLOCK_SIZE * (i+1));
+		memcpy((buffer + (BLOCK_SIZE * i)), readbuff, BLOCK_SIZE);
+		bzero(readbuff, BLOCK_SIZE);
     }
 
     return buffer;
@@ -962,10 +1037,249 @@ char* read_super()
 
     for(i = 0; i < 8; i++)
     {
-	bstat = block_read(i, readbuff);
-	memcpy((buffer + (BLOCK_SIZE * i)), readbuff, BLOCK_SIZE);
-	bzero(readbuff, BLOCK_SIZE);
+		bstat = block_read(i, readbuff);
+		memcpy((buffer + (BLOCK_SIZE * i)), readbuff, BLOCK_SIZE);
+		bzero(readbuff, BLOCK_SIZE);
     }
 
     return buffer;
+}
+
+void writeToDirectory(char *fPath)
+{
+	log_msg("In writeToDirectory\n");
+	log_msg("Parent Ino:%d\n",parentNode.info.st_ino);
+	char *inodeString = get_buffer(parentNode);
+	log_msg("Parent String:%s\n",inodeString);
+	int iLen = strlen(inodeString);
+	int fLen = strlen(fPath);
+	log_msg("inode string size:%d,fpath size:%d\n",iLen,fLen);
+	inodeString = realloc(inodeString,iLen + fLen + 1);
+	log_msg("Realloc\n");
+	strcat(inodeString,fPath);
+	log_msg("strcat\n");
+	loopWrite(inodeString);
+}
+
+void loopWrite(char* myString)
+{
+	log_msg("In loopWrite\n");
+	int bstat;
+	int mySize = strlen(myString)+1;
+	int myBlockCount;
+	int i;
+
+	//implementing a ceil()
+    if(mySize % BLOCK_SIZE > 0)
+    {
+		myBlockCount = (mySize/BLOCK_SIZE)+1;
+    }
+    else
+    {
+		myBlockCount = mySize/BLOCK_SIZE;
+    }
+
+	for(i = 0; i < myBlockCount; i++)
+	{
+		if(i < 32)//use direct pointers
+		{
+			if(parentNode.direct[i] == 0)//uninitialized direct pointer
+			{
+				//TODO: initialize block pointer here
+				parentNode.direct[i] = myBlockIndex();
+			}
+
+			bstat = block_write(parentNode.direct[i],myString);
+
+		}
+		else
+		{
+			if (parentNode.indirect[0] == 0)//uninitialized indirect pointer
+			{
+				parentNode.indirect[0] = myInodeIndex();
+				//loopWrite()
+			}
+			else
+			{
+			}
+		}
+
+		//TODO:Possible seg fault; double check later
+		myString += BLOCK_SIZE;
+	}
+
+/*
+	while (myBlockCount > 0)
+	{
+		bstat = block_write(myString);
+		myString += BLOCK_SIZE;
+		myBlockCount -= 1;
+	}
+*/
+}
+
+int myBlockIndex()
+{
+		log_msg("In myBlockIndex\n");
+		char *superBuff = read_super();
+		char inodeMap[64];
+		char dataMap[4031];
+	    memcpy(inodeMap, superBuff, 64);
+	    memcpy(dataMap, (superBuff + 64), 4031);
+	    //char superCopyInode[64];
+	    char superCopyData[4031];
+	    //memcpy(superCopyInode,inodeMap,64);
+	    memcpy(superCopyData,dataMap,4031);
+		int bitLocData = -1;
+	    int blockLocData = -1;
+		int i, j;
+		char freeBit;
+
+	    for(i = 0; i < 4031; i++)
+	    {
+	        for(j = 7; j >= 0; j--)
+	        {
+		        freeBit = superCopyData[i] & 1;
+	            if(freeBit)
+	            {
+		            bitLocData = j;
+		            blockLocData = i;
+		            break;
+	            }
+		        superCopyData[i] >>= 1;
+	        }
+	        if(bitLocData >= 0)
+	        {
+		        break;
+	        }
+	    }
+
+	    if (bitLocData == 0)
+	    {
+		    dataMap[blockLocData] &= 0x7f;
+	    }
+	    else if (bitLocData == 1)
+	    {
+		    dataMap[blockLocData] &= 0xbf;
+	    }
+	    else if (bitLocData == 2)
+	    {
+		    dataMap[blockLocData] &= 0xdf;
+	    }
+	    else if (bitLocData == 3)
+	    {
+	        dataMap[blockLocData] &= 0xef;
+	    }
+	    else if (bitLocData == 4)
+	    {
+            dataMap[blockLocData] &= 0xf7;
+	    }
+	    else if (bitLocData == 5)
+	    {
+            dataMap[blockLocData] &= 0xfb;
+	    }
+	    else if (bitLocData == 6)
+	    {
+            dataMap[blockLocData] &= 0xfd;
+	    }
+	    else if (bitLocData == 7)
+	    {
+            dataMap[blockLocData] &= 0xfe;
+	    }
+
+        int dataBlock = (bitLocData * 8) + (blockLocData + 520);
+
+        char insert_buffer[4095];
+        memcpy(insert_buffer, inodeMap, 64);
+        memcpy((insert_buffer + 64), dataMap, 4031);
+
+        for(i = 0; i < 8; i++)
+        {
+            block_write(i, insert_buffer + (BLOCK_SIZE * i));
+        }
+
+		return dataBlock;
+}
+
+int myInodeIndex()
+{
+		log_msg("In myInodeIndex\n");
+		char *superBuff = read_super();
+		char inodeMap[64];
+		char dataMap[4031];
+	    memcpy(inodeMap, superBuff, 64);
+	    memcpy(dataMap, (superBuff + 64), 4031);
+	    char superCopyInode[64];
+	    //char superCopyData[64];
+	    memcpy(superCopyInode,inodeMap,64);
+	    //memcpy(superCopyData,dataMap,4031);
+	    int bitLoc = -1;
+	    int blockLoc = -1;
+		int j,i;
+		char freeBit;
+
+	    for(i = 0; i < 64; i++)
+	    {
+	        for(j = 7; j >= 0; j--)
+	        {
+		        freeBit = superCopyInode[i] & 1;
+	            if(freeBit)
+	            {
+		            bitLoc = j;
+		            blockLoc = i;
+		            break;
+	            }
+		        superCopyInode[i] >>= 1;
+	        }
+	        if(bitLoc >= 0)
+	        {
+		        break;
+	        }
+	    }
+
+	    if (bitLoc == 0)
+	    {
+		    inodeMap[blockLoc] &= 0x7f;
+	    }
+	    else if (bitLoc == 1)
+	    {
+		    inodeMap[blockLoc] &= 0xbf;
+	    }
+	    else if (bitLoc == 2)
+	    {
+		    inodeMap[blockLoc] &= 0xdf;
+	    }
+	    else if (bitLoc == 3)
+	    {
+	        inodeMap[blockLoc] &= 0xef;
+	    }
+	    else if (bitLoc == 4)
+	    {
+            inodeMap[blockLoc] &= 0xf7;
+	    }
+	    else if (bitLoc == 5)
+	    {
+            inodeMap[blockLoc] &= 0xfb;
+	    }
+	    else if (bitLoc == 6)
+	    {
+            inodeMap[blockLoc] &= 0xfd;
+	    }
+	    else if (bitLoc == 7)
+	    {
+            inodeMap[blockLoc] &= 0xfe;
+	    }
+
+        int inodeBlock = (blockLoc*8) + bitLoc + INODE_START;
+
+		char insert_buffer[4095];
+        memcpy(insert_buffer, inodeMap, 64);
+        memcpy((insert_buffer + 64), dataMap, 4031);
+
+        for(i = 0; i < 8; i++)
+        {
+            block_write(i, insert_buffer + (BLOCK_SIZE * i));
+        }
+		
+		return inodeBlock;
 }
