@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
 	int stat;
 	int i;
-	int saveFiles, saveFlat = 0, saveMount = 0; //if flag set, don't delete, only unmount
+	int saveFiles = 0, saveFlat = 0, saveMount = 0; //if flag set, don't delete, only unmount
 
 	for(i = 1; i < argc; i++)
 	{
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 	strcpy(cmd, "./unmount");
 
 	if(saveFiles)
-	{strcat(cmd, "-s");}
+	{strcat(cmd, " -s");}
 
 	if(saveFlat)
 	{strcat(cmd, " t");}

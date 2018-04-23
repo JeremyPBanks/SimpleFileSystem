@@ -18,12 +18,12 @@ sfs_init()
     capable = 00000ffb
     want = 00000010
     context:
-    fuse = 024334c0
+    fuse = 01ddd4c0
     uid = 0
     gid = 0
     pid = 0
-    private_data = 02433010
-    logfile = 02433030
+    private_data = 01ddd010
+    logfile = 01ddd030
     diskfile = /.freespace/laf224/testfsfile
     umask = 00000
 fpath: /.Trash, path: /.Trash
@@ -43,5 +43,5 @@ Yo, this is readbuff:8	.
 
 Failed to find inode with path: .Trash-85014
 
-sfs_destroy(userdata=0x02433010)
+sfs_destroy(userdata=0x01ddd010)
 Closed disk
