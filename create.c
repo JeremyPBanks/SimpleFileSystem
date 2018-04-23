@@ -36,6 +36,12 @@ int main(int argc, char *argv[])
 	if(saveMount)
 	{strcat(cmd, " m");}
 
+	if((stat = system("make"))< 0)
+	{
+		printf("Failed to make\n");
+		return stat;
+	}
+
 	if((stat = system(cmd))	< 0)
 	{
 		printf("Failed to unmount\n");

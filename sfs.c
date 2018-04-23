@@ -150,7 +150,7 @@ int sfs_getattr(const char *path, struct stat *statbuf)
 
     char *grabbedInode = get_buffer(myInode);
 
-    log_msg("Bruh, I just grabbed this inode: %s\n",grabbedInode);
+    log_msg("Bruh, I just grabbed this inode: \n%s\n",grabbedInode);
 
     *statbuf = myInode.info;
     
@@ -186,7 +186,6 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 
     char *pathCopy = (char*)malloc(PATH_MAX);
     strcpy(pathCopy,path);
-    //TODO: alter file permissions?
 
     //check if file exists
     inode fileNode = get_inode(pathCopy, rootNode,0);
@@ -383,7 +382,7 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 		char directoryData[BLOCK_SIZE];
 		sprintf(directoryData,"%d\t%s\n",root_inode.info.st_ino,pathCopy);
 		fileFound = 1;
-		writeToDirectory(directoryData);
+		writeToDirectory(directoryData, MY_APPEND);
 		
 		log_msg("Just updated directory data\n");
 
@@ -395,17 +394,7 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 
     else
     {
-	//clear, rewrite file (with same permissions?)
-	/*
-	    STEPS:
-	    -clear blocks in data
-	    -reset bitmap where appropriate
-	    -change flags?
-	    
-	*/
-        //clear(fileNode);        
-        
-
+		return -EEXIST; //file already exists
     }
     
     return retstat;
@@ -417,6 +406,48 @@ int sfs_unlink(const char *path)
     int retstat = 0;
     log_msg("sfs_unlink(path=\"%s\")\n", path);
 
+	char pathCopy[PATH_MAX];
+	strcpy(pathCopy,path);
+	inode unlinkInode = get_inode(pathCopy,rootNode,0);
+
+	if(!fileFound)
+	{
+		return -ENOENT;
+	}
+	
+	int i, len;
+	
+	if(unlinkInode.info.st_size % BLOCK_SIZE > 0)
+    {
+		len = (unlinkInode.info.st_size/BLOCK_SIZE)+1;
+    }
+    else
+    {
+		len = unlinkInode.info.st_size/BLOCK_SIZE;
+    }
+
+	char zeroBuff[BLOCK_SIZE];
+	memset(zeroBuff,'\0',BLOCK_SIZE);
+	int wstat;
+
+	for(i = 0; i < len; i++)
+	{
+		if(i < 32)//direct pointers
+		{
+			wstat = block_write(unlinkInode.direct[i],zeroBuff);
+			flipBit(unlinkInode.direct[i]);
+			unlinkInode.direct[i] = 0;
+		}
+
+		else
+		{
+			//TODO: handle indirect pointers
+		}
+	}
+	flipBit(unlinkInode.info.st_ino);
+	unlinkInode.info.st_nlink = 0;
+	writeToDirectory(pathCopy,MY_DELETE);
+	log_msg("[unlink] okay...now what?\n");
     return retstat;
 }
 
@@ -447,23 +478,27 @@ int sfs_open(const char *path, struct fuse_file_info *fi)//0=fail,1=success
 	    return -2;
     }
 
+	struct timespec time;
+	clock_gettime(CLOCK_REALTIME, &time);
+	checkInode.info.st_atime = time.tv_sec;//update access time
+
     log_msg("\nsfs_open(path\"%s\", fi=0x%08x)\n",path, fi);
 
     if (lastOPFlag == 0)//Read
     {
-	if ((checkInode.info.st_mode & S_IRUSR) == S_IRUSR || (checkInode.info.st_mode & S_IRWXU) == S_IRWXU)
-	{
-        log_msg("Open Success.\n");
-		return 1;
-	}
+		if ((checkInode.info.st_mode & S_IRUSR) == S_IRUSR || (checkInode.info.st_mode & S_IRWXU) == S_IRWXU)
+		{
+		    log_msg("Open Success.\n");
+			return retstat;
+		}
     }
     else if (lastOPFlag == 1)//Write
     {
-	if ((checkInode.info.st_mode & S_IWUSR) == S_IWUSR || (checkInode.info.st_mode & S_IRWXU) == S_IRWXU)
-	{
-        log_msg("Open Success.\n");
-		return 1;
-	}
+		if ((checkInode.info.st_mode & S_IWUSR) == S_IWUSR || (checkInode.info.st_mode & S_IRWXU) == S_IRWXU)
+		{
+		    log_msg("Open Success.\n");
+			return retstat;
+		}
     }
     
     return retstat;
@@ -827,6 +862,7 @@ inode get_inode(char *path, inode this_inode,int depth)
 	            strcpy(inumTgt, tokenTgt);
 	            tgtNodeTgt = atoi(inumTgt);
 	            tgt = read_from_file(tgtNodeTgt);
+				log_msg("[get_inode] just read from file\n");
 	            break;
 	        }
 	        tokenTgt = strtok(NULL, "\n");
@@ -838,6 +874,7 @@ inode get_inode(char *path, inode this_inode,int depth)
 	        fileFound = 0;
         }
 
+		log_msg("[get_inode] freeing buffer...\n");
         free(bufferTgt);
 
 		if (depth == 0)
@@ -913,7 +950,7 @@ void write_to_file(inode insert_inode)
     
     if(bstat < 0)
     {
-	log_msg("Failed to write inode %d to file.\n", insert_inode.info.st_ino);
+		log_msg("Failed to write inode %d to file.\n", insert_inode.info.st_ino);
     }
 
     free(rootString);
@@ -934,11 +971,8 @@ inode read_from_file(int node)
 
     char *token = strtok(buf, "\t");
 
-    log_msg("Atoi...\n");
     testnode.info.st_dev = atoi(token);
-    log_msg("strtok...\n");
     token = strtok(NULL, "\t");
-    log_msg("CRASH...\n");
     testnode.info.st_ino = atoi(token);
     token = strtok(NULL, "\t");
     testnode.info.st_mode = atoi(token);
@@ -1015,7 +1049,7 @@ char* get_buffer(inode node)
     for(i = 0; i < len; i++)
     {
 		bstat = block_read(node.direct[i], readbuff);
-		log_msg("Yo, this is readbuff:%s\n",readbuff);
+		log_msg("Yo, this is readbuff:\n%s\n",readbuff);
 		if(bstat < 0)
 		{
 			log_msg("Failed to read block in get_buffer.\n");
@@ -1045,29 +1079,81 @@ char* read_super()
     return buffer;
 }
 
-void writeToDirectory(char *fPath)
+void writeToDirectory(char *fPath, int flag) //1 = append, 0 = remove
 {
 	log_msg("In writeToDirectory\n");
 	log_msg("Parent Ino:%d\n",parentNode.info.st_ino);
 	char *inodeString = get_buffer(parentNode);
-	log_msg("Parent String:%s\n",inodeString);
-	int iLen = strlen(inodeString);
-	int fLen = strlen(fPath);
-	log_msg("inode string size:%d,fpath size:%d\n",iLen,fLen);
-	inodeString = realloc(inodeString,iLen + fLen + 1);
-	log_msg("Realloc\n");
-	strcat(inodeString,fPath);
-	log_msg("strcat\n");
-	loopWrite(inodeString);
+	log_msg("Directory String:\n%s\n",inodeString);
+
+	if(flag == 1)//append
+	{
+		int iLen = strlen(inodeString);
+		int fLen = strlen(fPath);
+		log_msg("inode string size: %d fpath size:%d\n",iLen,fLen);
+		inodeString = realloc(inodeString,iLen + fLen + 1);
+		strcat(inodeString,fPath);
+	}
+
+	else if(flag == 0)//remove
+	{
+		log_msg("[writeToDirectory] Deleting in writeToDirectory\n");
+		inode removalNode = get_inode(fPath, rootNode, 0);
+		if(!fileFound)
+		{
+			log_msg("[writeToDirectory] Failed to find file when deleting\n");
+			return;
+		}
+
+		while(strstr(fPath, "/") != NULL)
+		{
+			fPath = strstr(fPath, "/")+1;//get name of file to be removed
+		}
+
+
+		char *format, *tempBuff;
+		log_msg("[writeToDirectory] Ino: %d FileName: %s\n",removalNode.info.st_ino, fPath);
+
+		asprintf(&format, "%d\t%s\n", removalNode.info.st_ino, fPath);//create 'format' of string to search for: Inode Number [tab] Filename
+		
+		char *tgtString = strstr(inodeString, format);//get location of string to be removed. TODO: edge case: directory contains '8[tab]testfile' and '18[tab]testfile2'
+		
+		int strLen = strstr(tgtString, "\n") - tgtString + 1;//get length of string about to be removed
+
+		asprintf(&tempBuff, "%s", tgtString + strLen);//copy all bytes directly after string about to be removed
+
+		memset((inodeString + (tgtString - inodeString)), '\0', strlen(tgtString));//clear out entire string starting from removal target
+
+		strcat(inodeString, tempBuff);//re-insert copied string
+	
+		free(tempBuff);
+		free(format);
+	}
+
+	else //sanity check
+	{
+		log_msg("[writeToDirectory] Holy shit my sanity is gone (check writeToDirectory)\n");
+	}
+
+	char myStringArg[PATH_MAX];
+	strcpy(myStringArg,inodeString);
+
+	loopWrite(myStringArg);
+	log_msg("[writeToDirectory] New Directory Contents:\n%s\n",inodeString);
+	free(inodeString);
 }
 
 void loopWrite(char* myString)
 {
-	log_msg("In loopWrite\n");
+	log_msg("[loopWrite] In loopWrite\n");
 	int bstat;
 	int mySize = strlen(myString)+1;
 	int myBlockCount;
 	int i;
+	char myZero[BLOCK_SIZE];
+	memset(myZero,'\0',BLOCK_SIZE);
+	
+
 
 	//implementing a ceil()
     if(mySize % BLOCK_SIZE > 0)
@@ -1079,6 +1165,7 @@ void loopWrite(char* myString)
 		myBlockCount = mySize/BLOCK_SIZE;
     }
 
+
 	for(i = 0; i < myBlockCount; i++)
 	{
 		if(i < 32)//use direct pointers
@@ -1086,11 +1173,21 @@ void loopWrite(char* myString)
 			if(parentNode.direct[i] == 0)//uninitialized direct pointer
 			{
 				//TODO: initialize block pointer here
+				log_msg("[loopWrite] index check\n");
 				parentNode.direct[i] = myBlockIndex();
 			}
+			log_msg("[loopWrite] First write\n");
+			bstat = block_write(parentNode.direct[i],myZero);//Clearing out just in case
+			if(bstat < 1)
+			{
+				log_msg("[loopWrite] Something in clearing out datablock, bstat:%d\n",bstat);
+			}
 
-			bstat = block_write(parentNode.direct[i],myString);
-
+			bstat = block_write(parentNode.direct[i],myString);//actual write
+			if(bstat < 1)
+			{
+				log_msg("[loopWrite] Something in actual data write, bstat:%d\n",bstat);
+			}
 		}
 		else
 		{
@@ -1105,17 +1202,11 @@ void loopWrite(char* myString)
 		}
 
 		//TODO:Possible seg fault; double check later
+		log_msg("[loopWrite] Next block\n");
 		myString += BLOCK_SIZE;
 	}
 
-/*
-	while (myBlockCount > 0)
-	{
-		bstat = block_write(myString);
-		myString += BLOCK_SIZE;
-		myBlockCount -= 1;
-	}
-*/
+	log_msg("[loopWrite] leaving loopwrite\n");
 }
 
 int myBlockIndex()
@@ -1198,6 +1289,7 @@ int myBlockIndex()
             block_write(i, insert_buffer + (BLOCK_SIZE * i));
         }
 
+		free(superBuff);
 		return dataBlock;
 }
 
@@ -1281,5 +1373,164 @@ int myInodeIndex()
             block_write(i, insert_buffer + (BLOCK_SIZE * i));
         }
 		
+		free(superBuff);
 		return inodeBlock;
+}
+
+void flipBit(int blockNum)
+{
+		log_msg("Flipping bit...");
+		char *superBuff = read_super();
+		char superBuffCopy[8*BLOCK_SIZE];
+		strcpy(superBuffCopy,superBuff);
+		char inodeMap[64];
+		char dataMap[4031];
+	    memcpy(inodeMap, superBuff, 64);
+	    memcpy(dataMap, (superBuff + 64), 4031);
+		char superCopyInode[64];
+	    char superCopyData[4031];
+	    memcpy(superCopyInode,inodeMap,64);
+		memcpy(superCopyData,dataMap,4031);
+
+		int bitLoc = -1;
+	    int blockLoc = -1;
+		int j,i,myBit,myIndex;
+		char freeBit,isInode;
+		if (blockNum < DATA_START)
+		{
+			log_msg("Flipping inode");
+			myBit = blockNum - INODE_START;
+
+			//modified ceil function
+			if(blockNum % 8 > 0)
+			{
+				myIndex = (blockNum/8)+1;
+			}
+			else
+			{
+				myIndex = blockNum/8;
+			}
+
+			myIndex -= 1;
+
+			for(j = 7; j >= 0; j--)
+			{
+				freeBit = superCopyInode[myIndex] & 1;
+				if(!freeBit && ((myIndex*8)+j)==myBit)
+				{
+					bitLoc = j;
+					blockLoc = myIndex;
+					break;
+				}
+				superCopyInode[myIndex] >>= 1;
+			}
+			if (bitLoc == 0)
+			{
+				inodeMap[blockLoc] ^= 0x80;
+			}
+			else if (bitLoc == 1)
+			{
+				inodeMap[blockLoc] ^= 0x40;
+			}
+			else if (bitLoc == 2)
+			{
+				inodeMap[blockLoc] ^= 0x20;
+			}
+			else if (bitLoc == 3)
+			{
+			    inodeMap[blockLoc] ^= 0x10;
+			}
+			else if (bitLoc == 4)
+			{
+		        inodeMap[blockLoc] ^= 0x08;
+			}
+			else if (bitLoc == 5)
+			{
+		        inodeMap[blockLoc] ^= 0x04;
+			}
+			else if (bitLoc == 6)
+			{
+		        inodeMap[blockLoc] ^= 0x02;
+			}
+			else if (bitLoc == 7)
+			{
+		        inodeMap[blockLoc] ^= 0x01;
+			}
+		}
+		else
+		{
+			myBit = blockNum - DATA_START;
+			log_msg("Flipping data");
+
+			if(blockNum % 8 > 0)
+			{
+				myIndex = (blockNum/8)+1;
+			}
+			else
+			{
+				myIndex = blockNum/8;
+			}
+
+			myIndex -= 1;
+
+			for(j = 7; j >= 0; j--)
+			{
+				freeBit = superCopyData[myIndex] & 1;
+				if(!freeBit && ((myIndex*8)+j)==myBit)
+				{
+					bitLoc = j;
+					blockLoc = myIndex;
+					break;
+				}
+				superCopyData[myIndex] >>= 1;
+			}
+			if (bitLoc == 0)
+			{
+				dataMap[blockLoc] ^= 0x80;
+			}
+			else if (bitLoc == 1)
+			{
+				dataMap[blockLoc] ^= 0x40;
+			}
+			else if (bitLoc == 2)
+			{
+				dataMap[blockLoc] ^= 0x20;
+			}
+			else if (bitLoc == 3)
+			{
+			    dataMap[blockLoc] ^= 0x10;
+			}
+			else if (bitLoc == 4)
+			{
+		        dataMap[blockLoc] ^= 0x08;
+			}
+			else if (bitLoc == 5)
+			{
+		        dataMap[blockLoc] ^= 0x04;
+			}
+			else if (bitLoc == 6)
+			{
+		        dataMap[blockLoc] ^= 0x02;
+			}
+			else if (bitLoc == 7)
+			{
+		        dataMap[blockLoc] ^= 0x01;
+			}
+		}
+
+
+
+
+		char insert_buffer[4095];
+        memcpy(insert_buffer, inodeMap, 64);
+        memcpy((insert_buffer + 64), dataMap, 4031);
+
+        for(i = 0; i < 8; i++)
+        {
+            block_write(i, insert_buffer + (BLOCK_SIZE * i));
+        }
+		
+	log_msg("DONE flipping, returning\n");
+	free(superBuff);
+	return;
 }

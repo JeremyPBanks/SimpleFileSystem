@@ -10,6 +10,8 @@
 #define INODE_START 8
 #define DATA_START 520
 #define ROOT_PATH "/tmp/laf224/mountdir"
+#define MY_DELETE 0
+#define MY_APPEND 1
 
 
 typedef struct inode
@@ -36,7 +38,9 @@ inode read_from_file(int); //read data from file
 char* read_from_inode(inode); //read from data section(s) corresponding with inode
 char* get_buffer(inode); //given an inode, return its data section contents as string
 char* read_super();//reads super block
-void writeToDirectory();//writes a directory inode
+void writeToDirectory(char*, int);//writes a directory inode TODO: why did this originally have no arguments?
 void loopWrite(char*);//Writes a string using block_write...looping may be required
 int myBlockIndex();//Grabs block index of next free data region block
 int myInodeIndex();//Grabs block index of next free inode region block
+void flipBit(int);//Flips bit on bitmap; will work for either inode or data
+

@@ -49,7 +49,6 @@ int block_read(const int block_num, void *buf)
 {
     int retstat = 0;
     retstat = pread(diskfile, buf, BLOCK_SIZE, block_num*BLOCK_SIZE);
-    log_msg("Block_read ret: %d\n", retstat);
 
     if (retstat <= 0){
 	memset(buf, 0, BLOCK_SIZE);

@@ -25,6 +25,7 @@ Notes for emails:
 	-how many of the stat struct members do we need to keep track of?
 	-bitch u gonna fuck us on cd root u motherfucker i will end u, so many ways to do it
 	-we're getting an error for calling touch in terminal, touch: setting times of 'file.c': Function not implemented
+
 ps -ef | grep sfs
 gdb attach 20319
 ./sfs -s...
@@ -32,3 +33,6 @@ gdb attach 20319
 Terminal Commands
 Traversal: cd
 Create File: touch
+
+
+TODO::we're cutting off the front of string on unlink...
