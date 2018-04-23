@@ -1,0 +1,8 @@
+#!/bin/bash
+#call this with '. ./setup [flags]'
+./create
+case $1 in
+	-c)
+		cd /tmp/laf224/mountdir		
+		;;
+esac
