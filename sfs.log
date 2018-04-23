@@ -18,14 +18,18 @@ sfs_init()
     capable = 00000ffb
     want = 00000010
     context:
-    fuse = 01ddd4c0
+    fuse = 011744c0
     uid = 0
     gid = 0
     pid = 0
-    private_data = 01ddd010
-    logfile = 01ddd030
+    private_data = 01174010
+    logfile = 01174030
     diskfile = /.freespace/laf224/testfsfile
     umask = 00000
+fpath: /, path: /
+JUST CHANGED / TO /.
+get_inode
+Path in get_inode: /.
 fpath: /.Trash, path: /.Trash
 get_inode
 Path in get_inode: /.Trash
@@ -34,6 +38,9 @@ Block_read ret: 512
 Yo, this is readbuff:8	.
 
 Failed to find inode with path: .Trash
+Searching for file '.'.
+fileFound sucks
+Failed to find inode with path: .
 fpath: /.Trash-85014, path: /.Trash-85014
 get_inode
 Path in get_inode: /.Trash-85014
@@ -42,6 +49,274 @@ Block_read ret: 512
 Yo, this is readbuff:8	.
 
 Failed to find inode with path: .Trash-85014
+fpath: /test.txt, path: /test.txt
+get_inode
+Path in get_inode: /test.txt
+Searching for file 'test.txt'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
 
-sfs_destroy(userdata=0x01ddd010)
+Failed to find inode with path: test.txt
+
+sfs_create(path="/test.txt", mode=0100600, fi=0xefffecf0)
+get_inode
+Path in get_inode: /test.txt
+Searching for file 'test.txt'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+
+Failed to find inode with path: test.txt
+File does not exist
+Block_read ret: 512
+Block_read ret: 512
+Block_read ret: 512
+Block_read ret: 512
+Block_read ret: 512
+Block_read ret: 512
+Block_read ret: 512
+Block_read ret: 512
+blockLoc:0,bitLoc:7,inodeBlock:15
+Just updated bit maps
+Path Copy, moment of truth: test.txt
+In writeToDirectory
+Parent Ino:8
+Block_read ret: 512
+Yo, this is readbuff:8	.
+
+Parent String:8	.
+
+inode string size:4,fpath size:12
+Realloc
+strcat
+In loopWrite
+Just updated directory data
+suoerBuff was freed
+pathCopy was freed
+fpath: /test.txt, path: /test.txt
+get_inode
+Path in get_inode: /test.txt
+Searching for file 'test.txt'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+fnameTgt: test.txtBlock_read ret: 512
+Atoi...
+strtok...
+CRASH...
+Just tokenized!
+myInode's number 15 and its first block is index 527.
+Bruh, I just grabbed this inode: (null)
+
+sfs_getattr(path="/test.txt", statbuf=0xefffec00)
+
+sfs_release(path="/test.txt", fi=0xefffecf0)
+fpath: /, path: /
+JUST CHANGED / TO /.
+get_inode
+Path in get_inode: /.
+Searching for file '.'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+fnameTgt: .Block_read ret: 512
+Atoi...
+strtok...
+CRASH...
+Just tokenized!
+myInode's number 8 and its first block is index 520.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+Bruh, I just grabbed this inode: 8	.
+15	test.txt
+
+
+sfs_getattr(path="/", statbuf=0xef7fdc10)
+
+sfs_opendir(path="/", fi=0xf4eb4c30)
+fpath: /.Trash, path: /.Trash
+get_inode
+Path in get_inode: /.Trash
+Searching for file '.Trash'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+Failed to find inode with path: .Trash
+fpath: /.Trash-85014, path: /.Trash-85014
+get_inode
+Path in get_inode: /.Trash-85014
+Searching for file '.Trash-85014'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+Failed to find inode with path: .Trash-85014
+-----sfs_readdir-----
+after strcpy, wtf is mypathcopy / and path / god wtf
+get_inode
+Path in get_inode: /
+after get inode
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+after get buffer
+after first strtok
+after while loop
+after freeing
+fpath: /test.txt, path: /test.txt
+get_inode
+Path in get_inode: /test.txt
+Searching for file 'test.txt'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+fnameTgt: test.txtBlock_read ret: 512
+Atoi...
+strtok...
+CRASH...
+Just tokenized!
+myInode's number 15 and its first block is index 527.
+Bruh, I just grabbed this inode: (null)
+
+sfs_getattr(path="/test.txt", statbuf=0xef7fdc40)
+fpath: /.hidden, path: /.hidden
+get_inode
+Path in get_inode: /.hidden
+Searching for file '.hidden'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+Failed to find inode with path: .hidden
+fpath: /, path: /
+JUST CHANGED / TO /.
+get_inode
+Path in get_inode: /.
+Searching for file '.'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+fnameTgt: .Block_read ret: 512
+Atoi...
+strtok...
+CRASH...
+Just tokenized!
+myInode's number 8 and its first block is index 520.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+Bruh, I just grabbed this inode: 8	.
+15	test.txt
+
+
+sfs_getattr(path="/", statbuf=0xefffec10)
+fpath: /, path: /
+JUST CHANGED / TO /.
+get_inode
+Path in get_inode: /.
+Searching for file '.'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+fnameTgt: .Block_read ret: 512
+Atoi...
+strtok...
+CRASH...
+Just tokenized!
+myInode's number 8 and its first block is index 520.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+Bruh, I just grabbed this inode: 8	.
+15	test.txt
+
+
+sfs_getattr(path="/", statbuf=0xef7fdc10)
+fpath: /, path: /
+JUST CHANGED / TO /.
+get_inode
+Path in get_inode: /.
+Searching for file '.'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+fnameTgt: .Block_read ret: 512
+Atoi...
+strtok...
+CRASH...
+Just tokenized!
+myInode's number 8 and its first block is index 520.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+Bruh, I just grabbed this inode: 8	.
+15	test.txt
+
+
+sfs_getattr(path="/", statbuf=0xefffec10)
+fpath: /, path: /
+JUST CHANGED / TO /.
+get_inode
+Path in get_inode: /.
+Searching for file '.'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+fnameTgt: .Block_read ret: 512
+Atoi...
+strtok...
+CRASH...
+Just tokenized!
+myInode's number 8 and its first block is index 520.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+Bruh, I just grabbed this inode: 8	.
+15	test.txt
+
+
+sfs_getattr(path="/", statbuf=0xef7fdc10)
+fpath: /unmount, path: /unmount
+get_inode
+Path in get_inode: /unmount
+Searching for file 'unmount'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+Failed to find inode with path: unmount
+fpath: /unmount, path: /unmount
+get_inode
+Path in get_inode: /unmount
+Searching for file 'unmount'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+Failed to find inode with path: unmount
+fpath: /unmount, path: /unmount
+get_inode
+Path in get_inode: /unmount
+Searching for file 'unmount'.
+Block_read ret: 512
+Yo, this is readbuff:8	.
+15	test.txt
+
+Failed to find inode with path: unmount
+
+sfs_destroy(userdata=0x01174010)
 Closed disk
