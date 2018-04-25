@@ -45,7 +45,7 @@ char* read_super();//reads super block
 
 void writeToDirectory(char*, int);//writes a directory inode TODO: why did this originally have no arguments?
 
-int loopWrite(char*, inode);//Writes a string using block_write...looping may be required
+int loopWrite(char*, inode*);//Writes a string using block_write...looping may be required
 
 int myBlockIndex();//Grabs block index of next free data region block
 

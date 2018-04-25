@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd /tmp/laf224/mountdir
+
+for count in 1 .. 129
+do
+	filename='test' . $count
+	touch $filename
+
+done

@@ -133,8 +133,8 @@ int sfs_getattr(const char *path, struct stat *statbuf)
 	log_msg("JUST CHANGED / TO /.\n");
 	strcpy(fpath, "/.");
     }
-
-    inode start = rootNode;
+	inode whygod;
+    inode start = get_inode("/", whygod, 0);
     /*if(fpath[0] == '/')
     {start = rootNode;}
     else
@@ -190,7 +190,9 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
     strcpy(pathCopy,path);
 
     //check if file exists
-    inode fileNode = get_inode(pathCopy, rootNode,0);
+	inode dummy;
+	inode start = get_inode("/",dummy, 0);
+    inode fileNode = get_inode(pathCopy, start,0);
 
     if(!fileFound)//file doesn't exist
     {
@@ -275,7 +277,8 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
         root_inode.info.st_gid = getgid();
         root_inode.info.st_rdev = 0;
         root_inode.info.st_size = 0; //see string in init()
-
+		root_inode.info.st_blksize = BLOCK_SIZE;
+		root_inode.info.st_blocks = 0;
         
 
         for(i = 1; i < 32; i++)
@@ -420,7 +423,9 @@ int sfs_unlink(const char *path)
 
 	char pathCopy[PATH_MAX];
 	strcpy(pathCopy,path);
-	inode unlinkInode = get_inode(pathCopy,rootNode,0);
+	inode dummy;
+	inode start = get_inode("/", dummy, 0);
+	inode unlinkInode = get_inode(pathCopy,start,0);
 
 	if(!fileFound)
 	{
@@ -476,8 +481,8 @@ int sfs_unlink(const char *path)
 int sfs_open(const char *path, struct fuse_file_info *fi)
 {
     int retstat = 0;
-
-    inode start = rootNode;
+	inode dummy;
+    inode start = get_inode("/", dummy, 0);
 
     char *pathCopy = (char*)malloc(PATH_MAX);
 
@@ -576,8 +581,9 @@ int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse
 	{
 		return -EFAULT;
 	}
-
-	inode readNode = get_inode(fPath, rootNode, 0);
+	inode dummy;
+	inode start = get_inode("/", dummy, 0);
+	inode readNode = get_inode(fPath, start, 0);
 
 	if(!fileFound)
 	{
@@ -653,8 +659,9 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 
 	char fPath[PATH_MAX];
 	strcpy(fPath, path);
-
-	inode writeNode = get_inode(fPath, rootNode, 0);
+	inode dummy;
+	inode start = get_inode("/", dummy, 0);
+	inode writeNode = get_inode(fPath, start, 0);
 	if(!fileFound)
 	{
 		log_msg("[Write] File Not Found\n");
@@ -671,7 +678,7 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 	memcpy(inodeString, buf, size);	
 	
 	log_msg("[Write] Now writing...\n");
-	retstat = loopWrite(startString, writeNode);
+	retstat = loopWrite(startString, &writeNode);
 	log_msg("[Write] ...File Written\n");
 
 	//update inode modification time & size
@@ -683,10 +690,21 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 	if(retstat > 0)
 	{
 		int fSize = writeNode.info.st_size - offset; //get number of bytes remaining after offset
+		log_msg("[Write] size:%d,offset:%d\n",writeNode.info.st_size,offset);
 
 		if(size > fSize)//if more bytes are written to file than current size of file, the file will expand in size
 		{
 			writeNode.info.st_size += (size - fSize); //increase file size by spillover bytes
+			int len;
+			if(writeNode.info.st_size % BLOCK_SIZE > 0)
+    		{
+				len = (writeNode.info.st_size/BLOCK_SIZE)+1;
+    		}
+    		else
+    		{
+				len = writeNode.info.st_size/BLOCK_SIZE;
+    		}
+			writeNode.info.st_blocks = len;
 		}
 
 		else
@@ -776,7 +794,9 @@ int sfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offse
 	char myPathCopy[pathLen+1];
 	strcpy(myPathCopy,path);
     log_msg("after strcpy, wtf is mypathcopy %s and path %s god wtf\n", myPathCopy, path);
-	inode myInode = get_inode(myPathCopy,rootNode,0);
+    inode dummy;
+	inode start = get_inode("/", dummy, 0);
+	inode myInode = get_inode(myPathCopy,start,0);
 	log_msg("after get inode\n");
 	if (!fileFound)
 	{
@@ -911,6 +931,8 @@ void setMetadata()
     root_inode.info.st_gid = getgid();
     root_inode.info.st_rdev = 0;
     root_inode.info.st_size = 5; //see string in init()
+	root_inode.info.st_blksize = BLOCK_SIZE;
+	root_inode.info.st_blocks = 1;
     root_inode.direct[0] = DATA_START;
 
     for(i = 1; i < 32; i++)
@@ -943,19 +965,20 @@ inode get_inode(char *path, inode this_inode,int depth)
     //TODO: L: I'll make this recursive for now, we'll see if we can change that later
     inode tgt;
 
-    log_msg("get_inode\n");
+    log_msg("~~[get_inode]~~\n");
 
     fileFound = 1;
 
-    log_msg("Path in get_inode: %s\n", path);
+    log_msg("[get_inode] Path in get_inode: %s\n", path);
 	if(strcmp(path, "/") == 0)
     {
+		rootNode = read_from_file(8);
 		parentNode = rootNode;
     	return rootNode;
     }
     if(strstr(path, ROOT_PATH) != NULL)//if root path exists in parameter
     {
-		log_msg("Chris: It'll never reach here!\n");
+		log_msg("[get_inode] Chris: It'll never reach here!\n");
 		path += strlen(ROOT_PATH);
     }
 
@@ -973,11 +996,11 @@ inode get_inode(char *path, inode this_inode,int depth)
     //base case
     if(strstr(path, "/") == NULL)
     {
-		log_msg("Searching for file '%s'.\n", path);
+		log_msg("[get_inode] Searching for file '%s'.\n", path);
 		//TODO: read directory here, get inode
 
 		char *bufferTgt = get_buffer(this_inode);
-
+		log_msg("[get_inode] get_buffer just returned:%s\n",bufferTgt);
         //parse string to find filename
         char *tokenTgt = strtok(bufferTgt, "\n");
         char *fnameTgt;
@@ -1005,7 +1028,7 @@ inode get_inode(char *path, inode this_inode,int depth)
 
         if (tokenTgt == NULL)
         {
-            log_msg("Failed to find inode with path: %s\n",path);
+            log_msg("[get_inode] Failed to find inode with path: %s\n",path);
 	        fileFound = 0;
         }
 
@@ -1015,8 +1038,11 @@ inode get_inode(char *path, inode this_inode,int depth)
 
 		if (depth == 0)
 		{
+			rootNode = read_from_file(8);
 			parentNode = rootNode;
 		}
+
+		log_msg("~~End of [get_inode]~~\n");
 
 	    return tgt;
     }
@@ -1073,6 +1099,7 @@ inode get_inode(char *path, inode this_inode,int depth)
     free(buffer);
     log_msg("Newpath is %s\n and tgt is %i", newpath, tgt.info.st_ino);
 	parentNode = tgt;
+	log_msg("~~End of [get_inode]~~\n");
     return get_inode(newpath, tgt, depth+1);
 }
 
@@ -1124,6 +1151,16 @@ inode read_from_file(int node)
     testnode.info.st_size = atoi(token);
     token = strtok(NULL, "\t");
 
+	int len;
+	if(testnode.info.st_size % BLOCK_SIZE > 0)
+    {
+		len = (testnode.info.st_size/BLOCK_SIZE)+1;
+    }
+    else
+    {
+		len = testnode.info.st_size/BLOCK_SIZE;
+    }
+	testnode.info.st_blocks = len;
 
     for(i = 0; i < 32; i++)
     {
@@ -1158,7 +1195,7 @@ char* get_buffer(inode node)
 {
     if(!fileFound)
     {
-		log_msg("fileFound sucks\n");
+		log_msg("[get_buffer] fileFound sucks\n");
 		return NULL;
     }
 
@@ -1174,25 +1211,27 @@ char* get_buffer(inode node)
 
     if(node.info.st_size % BLOCK_SIZE > 0)
     {
-	len = (node.info.st_size/BLOCK_SIZE)+1;
+		len = (node.info.st_size/BLOCK_SIZE)+1;
     }
     else
     {
-	len = node.info.st_size/BLOCK_SIZE;
+		len = node.info.st_size/BLOCK_SIZE;
     }
+
+	log_msg("[get_buffer] len:%d,size:%d\n",len,node.info.st_size);
 
     //TODO: for now, assume directories won't require indirect inodes; total string size less than 32 * 512. (Maybe) fix this later
     for(i = 0; i < len; i++)
     {
 		bstat = block_read(node.direct[i], readbuff);
-		log_msg("Yo, this is readbuff:\n%s\n",readbuff);
+		log_msg("[get_buffer] Yo, this is readbuff:\n%s\n",readbuff);
 		if(bstat < 0)
 		{
-			log_msg("Failed to read block in get_buffer.\n");
+			log_msg("[get_buffer] Failed to read block in get_buffer.\n");
 		}
 		buffer = realloc(buffer, BLOCK_SIZE * (i+1));
 		memcpy((buffer + (BLOCK_SIZE * i)), readbuff, BLOCK_SIZE);
-		bzero(readbuff, BLOCK_SIZE);
+		memset(readbuff, '\0', BLOCK_SIZE);
     }
 
     return buffer;
@@ -1234,7 +1273,9 @@ void writeToDirectory(char *fPath, int flag) //1 = append, 0 = remove
 	else if(flag == 0)//remove
 	{
 		log_msg("[writeToDirectory] Deleting in writeToDirectory\n");
-		inode removalNode = get_inode(fPath, rootNode, 0);
+		inode dummy;
+		inode start = get_inode("/",dummy, 0);
+		inode removalNode = get_inode(fPath, start, 0);
 		if(!fileFound)
 		{
 			log_msg("[writeToDirectory] Failed to find file when deleting\n");
@@ -1252,7 +1293,7 @@ void writeToDirectory(char *fPath, int flag) //1 = append, 0 = remove
 
 		asprintf(&format, "%d\t%s\n", removalNode.info.st_ino, fPath);//create 'format' of string to search for: Inode Number [tab] Filename
 		
-		char *tgtString = strstr(inodeString, format);//get location of string to be removed. TODO: edge case: directory contains '8[tab]testfile' and '18[tab]testfile2'
+		char *tgtString = strstr(inodeString, format);//get location of string to be removed. 
 		
 		int strLen = strstr(tgtString, "\n") - tgtString + 1;//get length of string about to be removed
 
@@ -1273,15 +1314,33 @@ void writeToDirectory(char *fPath, int flag) //1 = append, 0 = remove
 
 	char myStringArg[PATH_MAX];
 	strcpy(myStringArg,inodeString);
+	parentNode.info.st_size = strlen(myStringArg) + 1;
 
-	loopWrite(myStringArg, parentNode);
-	log_msg("[writeToDirectory] New Directory Contents:\n%s\n",inodeString);
+	int len;
+	if(parentNode.info.st_size % BLOCK_SIZE > 0)
+    {
+		len = (parentNode.info.st_size/BLOCK_SIZE)+1;
+    }
+    else
+    {
+		len = parentNode.info.st_size/BLOCK_SIZE;
+    }
+	parentNode.info.st_blocks = len;
+
+	log_msg("[writeToDirectory] String: %s File Size: %d Block Count: %d\n", myStringArg, parentNode.info.st_size, len);
+
+	loopWrite(myStringArg, &parentNode);
+	write_to_file(parentNode);
+	log_msg("[writeToDirectory] New Directory Contents:\n%s\n",myStringArg);
 	free(inodeString);
+	rootNode = read_from_file(8);
 }
 
-int loopWrite(char* myString, inode node)
+int loopWrite(char* myString, inode* thisNode)
 {
+	inode node = *thisNode;
 	log_msg("[loopWrite] In loopWrite\n");
+	log_msg("[loopWrite] myString: %s\n",myString);
 	int bstat;
 	int mySize = strlen(myString)+1;
 	int myBlockCount;
@@ -1302,6 +1361,7 @@ int loopWrite(char* myString, inode node)
 		myBlockCount = mySize/BLOCK_SIZE;
     }
 
+	log_msg("[loopWrite] myBlockCount-->%d\n",myBlockCount);
 
 	for(i = 0; i < myBlockCount; i++)
 	{
@@ -1312,16 +1372,18 @@ int loopWrite(char* myString, inode node)
 				//TODO: initialize block pointer here
 				log_msg("[loopWrite] index check\n");
 				thisBlock = myBlockIndex();
+				log_msg("[loopWrite] thisBlock----->%d\n",thisBlock);
 
 				if (thisBlock < 0)//Out of space
 				{
 					log_msg("[loopWrite] Out of Space {Direct}\n");
+					*thisNode = node;
 					return totalWritten;
 				}
 			
 				node.direct[i] = thisBlock;
 			}
-			log_msg("[loopWrite] First write\n");
+			log_msg("[loopWrite] Writing...\n");
 			bstat = block_write(node.direct[i],myZero);//Clearing out just in case
 			if(bstat < 1)
 			{
@@ -1329,6 +1391,7 @@ int loopWrite(char* myString, inode node)
 			}
 
 			bstat = block_write(node.direct[i],myString);//actual write
+
 			if(bstat < 1)
 			{
 				log_msg("[loopWrite] Something in actual data write, bstat:%d\n",bstat);
@@ -1342,6 +1405,7 @@ int loopWrite(char* myString, inode node)
 				if (thisInode < 0)//Out of space
 				{
 					log_msg("[loopWrite] Out of Space {Indirect}\n");
+					*thisNode = node;
 					return totalWritten;
 				}
 				node.indirect[0] = thisInode;
@@ -1358,7 +1422,7 @@ int loopWrite(char* myString, inode node)
 	}
 
 	log_msg("[loopWrite] leaving loopwrite\n");
-
+	*thisNode = node;
 	return mySize;
 }
 

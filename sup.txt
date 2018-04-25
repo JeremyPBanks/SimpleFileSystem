@@ -25,6 +25,9 @@ Notes for emails:
 	-how many of the stat struct members do we need to keep track of?
 	-bitch u gonna fuck us on cd root u motherfucker i will end u, so many ways to do it
 	-we're getting an error for calling touch in terminal, touch: setting times of 'file.c': Function not implemented
+	-echoing to a file that doesn't exist, right now it creates the file but should it actually write to it???
+	-'$' gives us a numerical value...is this fine?
+	-buffer sizes bigger than 4kb, should we be writing the whole thing?
 
 
 ***Design Decision***:	Keep writing until data is filled (check as we go, not all at once)
