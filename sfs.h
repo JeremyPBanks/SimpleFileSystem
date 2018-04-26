@@ -5,6 +5,7 @@
 #include <math.h>
 
 #define SYSTEM_SIZE (16 * 1024 * 1024)
+#define BUFF_SIZE (16 * 1024)
 #define INODE_COUNT 512
 #define BLOCK_COUNT (SYSTEM_SIZE/512)
 #define INODE_START 8
@@ -35,15 +36,15 @@ void setMetadata(); //initialize metadata for first use of filesystem
 
 inode get_inode(char*, inode, int); //given a file path and starting inode (directory), traverse directories to find inode
 
-void write_to_file(inode); //write inode to file
+void write_to_file(inode); //write inode to file in inode region
 
-inode read_from_file(int); //read data from file
+inode read_from_file(int); //read inode from file given an index to inode region
 
 char* get_buffer(inode); //given an inode, return its data section contents as string
 
 char* read_super();//reads super block
 
-void writeToDirectory(char*, int);//writes a directory inode TODO: why did this originally have no arguments?
+void writeToDirectory(char*, int); //updates data region for a directory inode
 
 int loopWrite(char*, inode*);//Writes a string using block_write...looping may be required
 

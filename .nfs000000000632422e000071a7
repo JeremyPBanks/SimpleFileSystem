@@ -1,0 +1,299 @@
+Opened disk
+Readstat: 0
+Back from metadata init
+Bstat after write: 512
+Bstat after read: 512
+Root data: 8	.
+
+
+sfs_init()
+    conn:
+    proto_major = 7
+    proto_minor = 22
+    async_read = 1
+    max_write = 131072
+    max_readahead = 131072
+    capable = 00000ffb
+    want = 00000010
+    context:
+    fuse = 00bc64c0
+    uid = 0
+    gid = 0
+    pid = 0
+    private_data = 00bc6010
+    logfile = 00bc6030
+    diskfile = /.freespace/laf224/testfsfile
+    umask = 00000
+fpath: /, path: /
+JUST CHANGED / TO /.
+~~[get_inode]~~
+[get_inode] Path in get_inode: /
+fpath: /.Trash, path: /.Trash
+Just tokenized!
+~~[get_inode]~~
+[get_inode] Path in get_inode: /.
+~~[get_inode]~~
+[get_inode] Path in get_inode: /
+[get_inode] Searching for file '.'.
+[get_buffer] len:1,size:5
+[get_buffer] Yo, this is readbuff:
+8	.
+
+[get_inode] get_buffer just returned:8	.
+
+fnameTgt: .Just tokenized!
+[get_inode] just read from file
+[get_inode] freeing buffer...
+[get_inode] freed buffer...
+Just tokenized!
+~~End of [get_inode]~~
+myInode's number 8 and its first block is index 520.
+[get_buffer] len:1,size:5
+[get_buffer] Yo, this is readbuff:
+8	.
+
+Bruh, I just grabbed this inode: 
+8	.
+
+
+sfs_getattr(path="/", statbuf=0xae243c10)
+Just tokenized!
+~~[get_inode]~~
+[get_inode] Path in get_inode: /.Trash
+[get_inode] Searching for file '.Trash'.
+[get_buffer] len:1,size:5
+[get_buffer] Yo, this is readbuff:
+8	.
+
+[get_inode] get_buffer just returned:8	.
+
+[get_inode] Failed to find inode with path: .Trash
+[get_inode] freeing buffer...
+[get_inode] freed buffer...
+Just tokenized!
+~~End of [get_inode]~~
+fpath: /.Trash-85014, path: /.Trash-85014
+~~[get_inode]~~
+[get_inode] Path in get_inode: /
+Just tokenized!
+~~[get_inode]~~
+[get_inode] Path in get_inode: /.Trash-85014
+[get_inode] Searching for file '.Trash-85014'.
+[get_buffer] len:1,size:5
+[get_buffer] Yo, this is readbuff:
+8	.
+
+[get_inode] get_buffer just returned:8	.
+
+[get_inode] Failed to find inode with path: .Trash-85014
+[get_inode] freeing buffer...
+[get_inode] freed buffer...
+Just tokenized!
+~~End of [get_inode]~~
+fpath: /folder, path: /folder
+~~[get_inode]~~
+[get_inode] Path in get_inode: /
+Just tokenized!
+~~[get_inode]~~
+[get_inode] Path in get_inode: /folder
+[get_inode] Searching for file 'folder'.
+[get_buffer] len:1,size:5
+[get_buffer] Yo, this is readbuff:
+8	.
+
+[get_inode] get_buffer just returned:8	.
+
+[get_inode] Failed to find inode with path: folder
+[get_inode] freeing buffer...
+[get_inode] freed buffer...
+Just tokenized!
+~~End of [get_inode]~~
+
+sfs_mkdir(path="/folder", mode=0700)
+~~[get_inode]~~
+[get_inode] Path in get_inode: /
+Just tokenized!
+~~[get_inode]~~
+[get_inode] Path in get_inode: /folder
+[get_inode] Searching for file 'folder'.
+[get_buffer] len:1,size:5
+[get_buffer] Yo, this is readbuff:
+8	.
+
+[get_inode] get_buffer just returned:8	.
+
+[get_inode] Failed to find inode with path: folder
+[get_inode] freeing buffer...
+[get_inode] freed buffer...
+Just tokenized!
+~~End of [get_inode]~~
+In myInodeIndex
+Directory size: 0
+[mkdir] About to write to parent directory: 15	folder
+
+In writeToDirectory
+Parent Ino:8
+[get_buffer] len:1,size:5
+[get_buffer] Yo, this is readbuff:
+8	.
+
+Directory String:
+8	.
+
+inode string size: 4 fpath size:10
+[writeToDirectory] String: 8	.
+15	folder
+ File Size: 15 Block Count: 1
+[loopWrite] In loopWrite
+[loopWrite] myString: 8	.
+15	folder
+
+[loopWrite] myBlockCount-->1
+[loopWrite] Writing...
+[loopWrite] Next block...please don't seg fault
+[loopWrite] leaving loopwrite
+[writeToDirectory] New Directory Contents:
+8	.
+15	folder
+
+Just tokenized!
+[mkdir] About to write to this directory: 15	.
+
+In writeToDirectory
+Parent Ino:15
+[get_buffer] len:0,size:0
+Directory String:
+
+inode string size: 0 fpath size:5
+[writeToDirectory] String: 15	.
+ File Size: 6 Block Count: 1
+[loopWrite] In loopWrite
+[loopWrite] myString: 15	.
+
+[loopWrite] myBlockCount-->1
+[loopWrite] index check
+In myBlockIndex
+[loopWrite] thisBlock----->576
+[loopWrite] Writing...
+[loopWrite] Next block...please don't seg fault
+[loopWrite] leaving loopwrite
+[writeToDirectory] New Directory Contents:
+15	.
+
+Just tokenized!
+[mkdir] About to write new directory metadata
+[mkdir] Returning from mkdir
+fpath: /folder, path: /folder
+~~[get_inode]~~
+[get_inode] Path in get_inode: /
+Just tokenized!
+~~[get_inode]~~
+[get_inode] Path in get_inode: /folder
+[get_inode] Searching for file 'folder'.
+[get_buffer] len:1,size:15
+[get_buffer] Yo, this is readbuff:
+8	.
+15	folder
+
+[get_inode] get_buffer just returned:8	.
+15	folder
+
+fnameTgt: folderJust tokenized!
+[get_inode] just read from file
+[get_inode] freeing buffer...
+[get_inode] freed buffer...
+Just tokenized!
+~~End of [get_inode]~~
+myInode's number 15 and its first block is index 0.
+[get_buffer] len:1,size:6
+[get_buffer] Yo, this is readbuff:
+~ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ~ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ@,¤­Y
+Bruh, I just grabbed this inode: 
+~ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ~ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+
+sfs_getattr(path="/folder", statbuf=0xada42c40)
+fpath: /, path: /
+JUST CHANGED / TO /.
+~~[get_inode]~~
+[get_inode] Path in get_inode: /
+Just tokenized!
+~~[get_inode]~~
+[get_inode] Path in get_inode: /.
+[get_inode] Searching for file '.'.
+[get_buffer] len:1,size:15
+[get_buffer] Yo, this is readbuff:
+8	.
+15	folder
+
+[get_inode] get_buffer just returned:8	.
+15	folder
+
+fnameTgt: .Just tokenized!
+[get_inode] just read from file
+[get_inode] freeing buffer...
+[get_inode] freed buffer...
+Just tokenized!
+~~End of [get_inode]~~
+myInode's number 8 and its first block is index 520.
+[get_buffer] len:1,size:15
+[get_buffer] Yo, this is readbuff:
+8	.
+15	folder
+
+Bruh, I just grabbed this inode: 
+8	.
+15	folder
+
+
+sfs_getattr(path="/", statbuf=0xad241c10)
+fpath: /folder, path: /folder
+~~[get_inode]~~
+[get_inode] Path in get_inode: /
+Just tokenized!
+~~[get_inode]~~
+[get_inode] Path in get_inode: /folder
+[get_inode] Searching for file 'folder'.
+[get_buffer] len:1,size:15
+[get_buffer] Yo, this is readbuff:
+8	.
+15	folder
+
+[get_inode] get_buffer just returned:8	.
+15	folder
+
+fnameTgt: folderJust tokenized!
+[get_inode] just read from file
+[get_inode] freeing buffer...
+[get_inode] freed buffer...
+Just tokenized!
+~~End of [get_inode]~~
+myInode's number 15 and its first block is index 0.
+[get_buffer] len:1,size:6
+[get_buffer] Yo, this is readbuff:
+~ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ~ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ@<$®Y
+Bruh, I just grabbed this inode: 
+~ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ~ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+
+sfs_getattr(path="/folder", statbuf=0xae243c40)
+fpath: /folder/newfile, path: /folder/newfile
+~~[get_inode]~~
+[get_inode] Path in get_inode: /
+Just tokenized!
+~~[get_inode]~~
+[get_inode] Path in get_inode: /folder/newfile
+Searching for folder 'folder' [name size 6] in path 'folder/newfile'.
+[get_buffer] len:1,size:15
+[get_buffer] Yo, this is readbuff:
+8	.
+15	folder
+
+Just tokenized!
+Newpath is newfile
+ and tgt is 15~~End of [get_inode]~~
+~~[get_inode]~~
+[get_inode] Path in get_inode: newfile
+[get_inode] Searching for file 'newfile'.
+[get_buffer] len:1,size:6
+[get_buffer] Yo, this is readbuff:
+~ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ~ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+[get_inode] get_buffer just returned:~ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ~ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ

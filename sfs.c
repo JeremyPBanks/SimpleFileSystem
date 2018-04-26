@@ -33,10 +33,11 @@
 
 
 /*--------GLOBALS----------*/
-inode currentNode;
 inode parentNode;
 inode rootNode;
+inode currentNode;
 mode_t lastOpFlag; //holds file permission of just-opened file
+mode_t lastDirOpFlag; //holds folder permission of just-opened directory
 int fileFound;
 /*-------------------------*/
 
@@ -73,12 +74,12 @@ void *sfs_init(struct fuse_conn_info *conn)
 	log_msg("Back from metadata init\n");
         //create root folder
 	//char *rootData = "0&.\n";
-	char rootData[PATH_MAX];
+	char rootData[BUFF_SIZE];
 	strcpy(rootData, "8\t.\n");
 	bstat = block_write(DATA_START, rootData);
 	log_msg("Bstat after write: %d\n", bstat);
 
-	bzero(rootData, PATH_MAX);
+	bzero(rootData, BUFF_SIZE);
 	bstat = block_read(DATA_START, rootData);
 	log_msg("Bstat after read: %d\n", bstat);
 
@@ -123,7 +124,8 @@ void sfs_destroy(void *userdata)
 int sfs_getattr(const char *path, struct stat *statbuf)
 {
     int retstat = 0;
-    char fpath[PATH_MAX];
+    //char fpath[BUFF_SIZE];
+	char *fpath = (char*)malloc(strlen(path)+1);
     strcpy(fpath, path);
     log_msg("fpath: %s, path: %s\n",fpath,path);
     int myLen = strlen(fpath);
@@ -135,14 +137,11 @@ int sfs_getattr(const char *path, struct stat *statbuf)
     }
 	inode whygod;
     inode start = get_inode("/", whygod, 0);
-    /*if(fpath[0] == '/')
-    {start = rootNode;}
-    else
-    {start = currentNode;}*/
 
     inode myInode = get_inode(fpath, start,0);
     if(!fileFound)
     {
+		free(fpath);
         return -2; //file not found
     }
     
@@ -158,6 +157,7 @@ int sfs_getattr(const char *path, struct stat *statbuf)
 	  path, statbuf);
     
 	free(grabbedInode);
+	free(fpath);
     return retstat;
 }
 
@@ -185,8 +185,8 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
     char freeBit;
     int found = 0;
 
-    //char *pathCopy = (char*)malloc(PATH_MAX);
-	char pathCopy[PATH_MAX];
+    char *pathCopy = (char*)malloc(strlen(path)+1);
+	//char pathCopy[BUFF_SIZE];
     strcpy(pathCopy,path);
 
     //check if file exists
@@ -412,6 +412,8 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 		write_to_file(fileNode);
     }
     
+	free(pathCopy);
+
     return retstat;
 }
 
@@ -421,7 +423,8 @@ int sfs_unlink(const char *path)
     int retstat = 0;
     log_msg("sfs_unlink(path=\"%s\")\n", path);
 
-	char pathCopy[PATH_MAX];
+	//char pathCopy[BUFF_SIZE];
+	char *pathCopy = (char*)malloc(strlen(path)+1);
 	strcpy(pathCopy,path);
 	inode dummy;
 	inode start = get_inode("/", dummy, 0);
@@ -484,7 +487,7 @@ int sfs_open(const char *path, struct fuse_file_info *fi)
 	inode dummy;
     inode start = get_inode("/", dummy, 0);
 
-    char *pathCopy = (char*)malloc(PATH_MAX);
+    char *pathCopy = (char*)malloc(strlen(path)+1);
 
     strcpy(pathCopy,path);
 
@@ -511,7 +514,7 @@ int sfs_open(const char *path, struct fuse_file_info *fi)
 	}
 	
 	lastOpFlag = checkInode.info.st_mode; //record file permissions
-	
+	free(pathCopy);
 	return retstat;    
 }
 
@@ -569,7 +572,8 @@ int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse
 		return -EACCES; //permission denied
 	}
 
-	char fPath[PATH_MAX];
+	//char fPath[BUFF_SIZE];
+	char *fPath = (char*)malloc(strlen(path)+1);
 	strcpy(fPath, path);
 
 	if(size <= 0) //if request to read 0 bytes or a null pointer is passed
@@ -587,12 +591,14 @@ int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse
 
 	if(!fileFound)
 	{
+		free(fPath);
 		log_msg("[Read] File Not Found\n");
 		return -ENOENT; //file not found
 	}
 		
 	if(offset >= readNode.info.st_size)//if starting point + #bytes to read goes past size of file
 	{
+		free(fPath);
 		return 0; //end-of-file: return 0 (according to pdf)
 	}
 
@@ -618,6 +624,7 @@ int sfs_read(const char *path, char *buf, size_t size, off_t offset, struct fuse
 	free(stringStart);
 	log_msg("[Read] Free Successful\n");
 	
+	free(fPath);
     return retstat; //restat for read/write contains number of bytes written/read in operation
 }
 
@@ -657,13 +664,15 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 		return -EFAULT;
 	}
 
-	char fPath[PATH_MAX];
+	//char fPath[BUFF_SIZE];
+	char *fPath = (char*)malloc(strlen(path)+1);
 	strcpy(fPath, path);
 	inode dummy;
 	inode start = get_inode("/", dummy, 0);
 	inode writeNode = get_inode(fPath, start, 0);
 	if(!fileFound)
 	{
+		free(fPath);
 		log_msg("[Write] File Not Found\n");
 		return -ENOENT; //file not found
 	}
@@ -717,6 +726,7 @@ int sfs_write(const char *path, const char *buf, size_t size, off_t offset,
 
 	log_msg("[Write] Free Incoming\n");
 	free(startString);
+	free(fPath);
 	log_msg("[Write] Free Successful\n");
     return retstat; //restat for read/write contains number of bytes written/read in operation
 }
@@ -728,7 +738,83 @@ int sfs_mkdir(const char *path, mode_t mode)
     int retstat = 0;
     log_msg("\nsfs_mkdir(path=\"%s\", mode=0%3o)\n",
 	    path, mode);
-   
+
+	int i;
+
+	char *fPath = (char*)malloc(strlen(path)+1);
+	strcpy(fPath, path);
+
+	inode dummy;
+	inode start = get_inode("/", dummy, 0);
+	inode dirNode = get_inode(fPath,start,0);
+
+	if(!fileFound)
+	{
+		char *pathStart = fPath;
+		while(strstr(fPath, "/") != NULL)
+		{
+			fPath = strstr(fPath, "/")+1;//get name of folder to be created
+		}
+
+		//set bitmaps and return index of free block (returns negative on error)
+		int nodeIndex = myInodeIndex(); 
+		int blockIndex = myBlockIndex();
+		if(nodeIndex < 0 || blockIndex < 0)
+		{
+			//no room in file system
+			return -ENOSPC;
+		}
+
+		char *currentBuffer, *parentBuffer;
+		asprintf(&parentBuffer, "%d\t%s\n", nodeIndex, fPath);
+		asprintf(&currentBuffer, "%d\t.\n", nodeIndex);
+
+		dirNode.info.st_dev = 0;
+    	dirNode.info.st_ino = nodeIndex;
+    	dirNode.info.st_mode = S_IFDIR | mode; //directory with passed-in permissions
+    	dirNode.info.st_nlink = 1;
+    	dirNode.info.st_uid = getuid();
+    	dirNode.info.st_gid = getgid();
+    	dirNode.info.st_rdev = 0;
+    	dirNode.info.st_size = strlen(currentBuffer)+1;
+		log_msg("Directory size: %d\n", dirNode.info.st_size);
+		dirNode.info.st_blksize = BLOCK_SIZE;
+		dirNode.info.st_blocks = 1;
+		dirNode.direct[0] = blockIndex;
+
+		for(i = 1; i < 32; i++)
+        {
+	    	dirNode.direct[i] = 0;
+        }
+
+        for(i = 0; i < 2; i++)
+        {
+            dirNode.indirect[i] = 0;
+        }
+
+		struct timespec time;
+        clock_gettime(CLOCK_REALTIME, &time);
+        dirNode.info.st_atime = time.tv_sec;
+        dirNode.info.st_mtime = time.tv_sec;
+        dirNode.info.st_ctime = time.tv_sec;
+
+		fileFound = 1;
+
+		log_msg("[mkdir] About to write to parent directory: %s\n", parentBuffer);	
+		writeToDirectory(parentBuffer, MY_APPEND); //update parent directory
+
+		log_msg("[mkdir] About to write new directory metadata\n");
+		write_to_file(dirNode); //write new inode to metadata region
+
+		log_msg("[mkdir] About to write to this directory: %s\n", currentBuffer);
+		parentNode = dirNode; //set parent directory to self to add dirNode to its own directory
+		writeToDirectory(currentBuffer, MY_APPEND); //update directory of self
+
+		log_msg("[mkdir] Returning from mkdir\n");
+		free(parentBuffer); free(currentBuffer); free(pathStart);
+	}    
+
+
     
     return retstat;
 }
@@ -740,6 +826,22 @@ int sfs_rmdir(const char *path)
     int retstat = 0;
     log_msg("sfs_rmdir(path=\"%s\")\n",
 	    path);
+
+	char *fPath = (char*)malloc(strlen(path)+1);
+	strcpy(fPath, path);
+
+	inode dummy;
+	inode start = get_inode("/", dummy, 0);
+	inode dirNode = get_inode(fPath,start,0);
+
+	if(!fileFound)
+	{
+    	return -ENOENT;//file not found
+	}    
+
+
+
+	free(fPath);
     
     
     return retstat;
@@ -758,8 +860,22 @@ int sfs_opendir(const char *path, struct fuse_file_info *fi)
     int retstat = 0;
     log_msg("\nsfs_opendir(path=\"%s\", fi=0x%08x)\n",
 	  path, fi);
-    
-    
+
+	char *fPath = (char*)malloc(strlen(path)+1);
+	strcpy(fPath, path);
+
+	inode dummy;
+	inode start = get_inode("/", dummy, 0);
+	inode dirNode = get_inode(fPath,start,0);
+
+	if(!fileFound)
+	{
+    	return -ENOENT;//file not found
+	}    
+
+	lastDirOpFlag = dirNode.info.st_mode;
+
+	free(fPath);
     return retstat;
 }
 
@@ -787,6 +903,8 @@ int sfs_opendir(const char *path, struct fuse_file_info *fi)
 int sfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offset,
 	       struct fuse_file_info *fi)
 {
+	//check directory permissions
+
 	log_msg("-----sfs_readdir-----\n");
     int retstat = 0;
 	struct stat fillMe;
@@ -802,6 +920,8 @@ int sfs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offse
 	{
 		return -ENOENT;
 	}
+
+	//TODO: check read permission
 
 	char* inodeAsString = get_buffer(myInode);
     log_msg("after get buffer\n");
@@ -1057,7 +1177,7 @@ inode get_inode(char *path, inode this_inode,int depth)
     */
 
     char *newpath = strstr(path, "/") + 1;
-    char filename[PATH_MAX];
+    char filename[BUFF_SIZE];
     int i = newpath - path - 1;
     memcpy(filename, path, i);
     filename[i] = '\0';
@@ -1125,7 +1245,7 @@ inode read_from_file(int node)
     inode testnode;
     int i;
 
-    char buf[PATH_MAX];
+    char buf[BUFF_SIZE];
     int bstat = block_read(node, buf);
     if(bstat < 0)
     {
@@ -1259,6 +1379,13 @@ void writeToDirectory(char *fPath, int flag) //1 = append, 0 = remove
 	log_msg("In writeToDirectory\n");
 	log_msg("Parent Ino:%d\n",parentNode.info.st_ino);
 	char *inodeString = get_buffer(parentNode);
+	if(inodeString == NULL)
+	{
+		log_msg("[writeToDirectory] Writing to empty directory\n"); 
+		inodeString = (char*)malloc(1);
+		inodeString[0] = '\0';
+	}
+
 	log_msg("Directory String:\n%s\n",inodeString);
 
 	if(flag == 1)//append
@@ -1312,7 +1439,8 @@ void writeToDirectory(char *fPath, int flag) //1 = append, 0 = remove
 		log_msg("[writeToDirectory] Holy shit my sanity is gone (check writeToDirectory)\n");
 	}
 
-	char myStringArg[PATH_MAX];
+	//char myStringArg[BUFF_SIZE];
+	char *myStringArg = (char*)malloc(strlen(inodeString)+1);
 	strcpy(myStringArg,inodeString);
 	parentNode.info.st_size = strlen(myStringArg) + 1;
 
@@ -1333,6 +1461,7 @@ void writeToDirectory(char *fPath, int flag) //1 = append, 0 = remove
 	write_to_file(parentNode);
 	log_msg("[writeToDirectory] New Directory Contents:\n%s\n",myStringArg);
 	free(inodeString);
+	free(myStringArg);
 	rootNode = read_from_file(8);
 }
 
@@ -1369,7 +1498,7 @@ int loopWrite(char* myString, inode* thisNode)
 		{
 			if(node.direct[i] == 0)//uninitialized direct pointer
 			{
-				//TODO: initialize block pointer here
+				//initialize block pointer
 				log_msg("[loopWrite] index check\n");
 				thisBlock = myBlockIndex();
 				log_msg("[loopWrite] thisBlock----->%d\n",thisBlock);
