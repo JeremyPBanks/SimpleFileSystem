@@ -394,13 +394,13 @@ int sfs_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 		}
 
 		log_msg("Path Copy, moment of truth: %s\n",dummy);
-		char directoryData[BLOCK_SIZE];
-		sprintf(directoryData,"%d\t%s\n",root_inode.info.st_ino,dummy);
+		char *directoryData;
+		asprintf(&directoryData,"%d\t%s\n",root_inode.info.st_ino,dummy);
 		fileFound = 1;
 		writeToDirectory(directoryData, MY_APPEND);
 		
 		log_msg("Just updated directory data\n");
-
+		free(directoryData);
 		free(superBuff);
 		log_msg("suoerBuff was freed\n");
     }
@@ -777,7 +777,7 @@ int sfs_mkdir(const char *path, mode_t mode)
     	dirNode.info.st_gid = getgid();
     	dirNode.info.st_rdev = 0;
     	dirNode.info.st_size = strlen(currentBuffer)+1;
-		log_msg("Directory size: %d\n", dirNode.info.st_size);
+		log_msg("[mkdir] Directory size: %d\n", dirNode.info.st_size);
 		dirNode.info.st_blksize = BLOCK_SIZE;
 		dirNode.info.st_blocks = 1;
 		dirNode.direct[0] = blockIndex;
@@ -824,26 +824,51 @@ int sfs_mkdir(const char *path, mode_t mode)
 int sfs_rmdir(const char *path)
 {
     int retstat = 0;
-    log_msg("sfs_rmdir(path=\"%s\")\n",
-	    path);
+	int rmBlocks;
+    log_msg("sfs_rmdir(path=\"%s\")\n",path);
 
 	char *fPath = (char*)malloc(strlen(path)+1);
 	strcpy(fPath, path);
+	//char *fCopy = fPath;
 
 	inode dummy;
 	inode start = get_inode("/", dummy, 0);
-	inode dirNode = get_inode(fPath,start,0);
 
 	if(!fileFound)
 	{
+		log_msg("[sfs_rmdir] File not found?\n");
     	return -ENOENT;//file not found
 	}    
 
+	log_msg("[sfs_rmdir] Removing nested stuff...\n");
+	removeSubDir(fPath,start);
+	log_msg("[sfs_rmdir] Just removed nested stuff...\n");
 
+	inode dirNode = get_inode(fPath,start,0);
 
+	if(dirNode.info.st_size % BLOCK_SIZE > 0)
+    {
+		rmBlocks = (dirNode.info.st_size/BLOCK_SIZE)+1;
+    }
+    else
+    {
+		rmBlocks = dirNode.info.st_size/BLOCK_SIZE;
+    }
+  
+	log_msg("[sfs_rmdir] Flipping bits...\n");
+	flipBit(dirNode.info.st_ino);
+	int i;
+	for(i=0;i<rmBlocks;i++)
+	{
+		flipBit(dirNode.direct[i]);
+	}
+
+	log_msg("[sfs_rmdir] Finalizing in writeToDirectory...\n");
+	writeToDirectory(fPath, MY_DELETE);
+
+	log_msg("[sfs_rmdir] Just finalized in writeToDirectory...\n");
 	free(fPath);
-    
-    
+	log_msg("[sfs_rmdir] Just removed the directory\n");
     return retstat;
 }
 
@@ -1120,6 +1145,7 @@ inode get_inode(char *path, inode this_inode,int depth)
 		//TODO: read directory here, get inode
 
 		char *bufferTgt = get_buffer(this_inode);
+		char *buffTgtStart = bufferTgt;
 		log_msg("[get_inode] get_buffer just returned:%s\n",bufferTgt);
         //parse string to find filename
         char *tokenTgt = strtok(bufferTgt, "\n");
@@ -1134,7 +1160,7 @@ inode get_inode(char *path, inode this_inode,int depth)
 	        fnameTgt = strstr(tokenTgt, "\t")+1;
 	        if(strcmp(path, fnameTgt) == 0)//file found
 	        {
-		        log_msg("fnameTgt: %s",fnameTgt);
+		        log_msg("[get_inode] fnameTgt: %s",fnameTgt);
 	            stroffsetTgt = fnameTgt - tokenTgt - 1;
 	            tokenTgt[stroffsetTgt] = '\0';
 	            strcpy(inumTgt, tokenTgt);
@@ -1153,7 +1179,7 @@ inode get_inode(char *path, inode this_inode,int depth)
         }
 
 		log_msg("[get_inode] freeing buffer...\n");
-        free(bufferTgt);
+        free(buffTgtStart);
 		log_msg("[get_inode] freed buffer...\n");
 
 		if (depth == 0)
@@ -1344,11 +1370,34 @@ char* get_buffer(inode node)
     for(i = 0; i < len; i++)
     {
 		bstat = block_read(node.direct[i], readbuff);
+		int count = 0;
+		char*newLinePtr = strstr(readbuff, "\n");
+		while(newLinePtr != NULL)
+		{
+			newLinePtr += 1;
+			count++;
+			newLinePtr = strstr(newLinePtr, "\n");
+		}
+        char *nullPtr = readbuff + strlen(readbuff) + 1;
+		if(nullPtr != NULL)
+		{
+			//nullPtr += 1;
+			log_msg("[get_buffer] nullPtrString:%s\n",nullPtr);
+
+		}
+		log_msg("[get_buffer] Newline count:%d\n",count);
 		log_msg("[get_buffer] Yo, this is readbuff:\n%s\n",readbuff);
 		if(bstat < 0)
 		{
 			log_msg("[get_buffer] Failed to read block in get_buffer.\n");
 		}
+
+		if((i+1) == len)
+		{
+			int thislen = strlen(readbuff)+1;
+			log_msg("[get_buffer] bytes in last block: %d\n",thislen);
+		}
+
 		buffer = realloc(buffer, BLOCK_SIZE * (i+1));
 		memcpy((buffer + (BLOCK_SIZE * i)), readbuff, BLOCK_SIZE);
 		memset(readbuff, '\0', BLOCK_SIZE);
@@ -1440,7 +1489,18 @@ void writeToDirectory(char *fPath, int flag) //1 = append, 0 = remove
 	}
 
 	//char myStringArg[BUFF_SIZE];
-	char *myStringArg = (char*)malloc(strlen(inodeString)+1);
+	int xyz = strlen(inodeString)+1;
+	char *myStringArg = (char*)malloc(xyz);
+	int count = 0;
+	char *newLinePtr;
+	newLinePtr = strstr(inodeString, "\n");
+	while(newLinePtr != NULL)
+	{
+		newLinePtr += 1;
+		count++;
+		newLinePtr = strstr(newLinePtr, "\n");
+	}
+	log_msg("[writeToDirectory] inodeString+1: %d, number of newline characters in inode string before strcpy: %d\n",xyz, count);
 	strcpy(myStringArg,inodeString);
 	parentNode.info.st_size = strlen(myStringArg) + 1;
 
@@ -1460,6 +1520,15 @@ void writeToDirectory(char *fPath, int flag) //1 = append, 0 = remove
 	loopWrite(myStringArg, &parentNode);
 	write_to_file(parentNode);
 	log_msg("[writeToDirectory] New Directory Contents:\n%s\n",myStringArg);
+	count = 0;
+	newLinePtr = strstr(myStringArg, "\n");
+	while(newLinePtr != NULL)
+	{
+		newLinePtr += 1;
+		count++;
+		newLinePtr = strstr(newLinePtr, "\n");
+	}
+	log_msg("[writeToDirectory] number of newline characters in inode string after strcpy: %d\n", count);
 	free(inodeString);
 	free(myStringArg);
 	rootNode = read_from_file(8);
@@ -1469,14 +1538,14 @@ int loopWrite(char* myString, inode* thisNode)
 {
 	inode node = *thisNode;
 	log_msg("[loopWrite] In loopWrite\n");
-	log_msg("[loopWrite] myString: %s\n",myString);
 	int bstat;
 	int mySize = strlen(myString)+1;
+	log_msg("[loopWrite] myString: %s\tmySize:%d\n",myString,mySize);
 	int myBlockCount;
 	int totalWritten = 0;
 	int i,thisBlock,thisInode;
-	char myZero[BLOCK_SIZE];
-	memset(myZero,'\0',BLOCK_SIZE);
+	//char myZero[BLOCK_SIZE];
+	//memset(myZero,'\0',BLOCK_SIZE);
 	
 
 
@@ -1513,7 +1582,7 @@ int loopWrite(char* myString, inode* thisNode)
 				node.direct[i] = thisBlock;
 			}
 			log_msg("[loopWrite] Writing...\n");
-			bstat = block_write(node.direct[i],myZero);//Clearing out just in case
+			//bstat = block_write(node.direct[i],myZero);//Clearing out just in case
 			if(bstat < 1)
 			{
 				log_msg("[loopWrite] Something in clearing out datablock, bstat:%d\n",bstat);
@@ -1889,4 +1958,77 @@ void flipBit(int blockNum)
 	log_msg("DONE flipping, returning\n");
 	free(superBuff);
 	return;
+}
+
+void removeSubDir(char *fullPath,inode start)
+{
+	inode dirNode = get_inode(fullPath,start,0);
+	char *myFiles = get_buffer(dirNode);
+	char *myStartToMyFiles = myFiles;
+
+	char *token = strtok(myFiles, "\n");
+	int nodeNumber,dataNumber,myBlockUseNum,retStat,index;
+	char *fileName;
+	mode_t myMode;
+	inode currInode;
+	char *fullPathCopy = (char*)malloc(strlen(fullPath)+1);
+	char *copy = fullPathCopy;
+
+	while (token != NULL)
+	{
+			strcpy(fullPathCopy,fullPath);
+			fileName = strstr(token, "\t");
+			fileName[0] = '\0';
+			fileName++;
+			fullPathCopy = realloc(fullPathCopy,strlen(fileName)+strlen(fullPathCopy)+2);
+			copy = fullPathCopy;
+			strcat(fullPathCopy,"/");
+			strcat(fullPathCopy,fileName);
+			currInode = get_inode(fullPathCopy,start,0);
+			myMode = currInode.info.st_mode;
+			myMode &= S_IFDIR;
+			nodeNumber = atoi(token);
+
+			if (myMode == S_IFDIR)
+			{
+				if(currInode.info.st_ino != dirNode.info.st_ino)
+				{
+					removeSubDir(fullPathCopy,start);
+					flipBit(nodeNumber);
+				
+					if(currInode.info.st_size % BLOCK_SIZE > 0)
+					{
+						myBlockUseNum = (currInode.info.st_size/BLOCK_SIZE)+1;
+					}
+					else
+					{
+						myBlockUseNum = currInode.info.st_size/BLOCK_SIZE;
+					}
+
+					for(index=0;index<myBlockUseNum;index++)
+					{
+						flipBit(currInode.direct[index]);
+					}
+
+					writeToDirectory(fullPathCopy, MY_DELETE);
+					log_msg("[removeSubDir] nested directory removed\n");
+				}
+			}
+			else
+			{
+				retStat = sfs_unlink(fullPathCopy);
+				log_msg("[removeSubDir] file just ulinked. retStat:%d\n",retStat);
+			}
+
+			log_msg("[removeSubDir] Is Lance right...\n");
+			free(copy);
+			log_msg("[removeSubDir] ...Lance was right\n");
+			token = strtok(NULL, "\n");
+	}
+	
+	//log_msg("[removeSubDir] freeing before exit\n");
+	//free(copy);
+	log_msg("[removeSubDir] freeing again before exit\n");
+	free(myStartToMyFiles);
+	log_msg("[removeSubDir] exit\n");
 }

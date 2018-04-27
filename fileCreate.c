@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 	int i;
 	char *cmd;
 
-	for(i = 0; i < 250; i++)
+	for(i = 0; i < 120; i++)
 	{
 		asprintf(&cmd, "cd /tmp/laf224/mountdir && touch %s%d.txt", "thisIsAnIncrediblyLongFileButIHopeEverythingWorks", i);
 		system(cmd);

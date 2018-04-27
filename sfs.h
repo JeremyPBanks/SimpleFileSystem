@@ -54,3 +54,5 @@ int myInodeIndex();//Grabs block index of next free inode region block
 
 void flipBit(int);//Flips bit on bitmap; will work for either inode or data
 
+void removeSubDir(char*,inode);//Recursviely removes all 
+
