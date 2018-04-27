@@ -68,7 +68,7 @@ int block_write(const int block_num, const void *buf)
     int retstat = 0;
     retstat = pwrite(diskfile, buf, BLOCK_SIZE, block_num*BLOCK_SIZE);
     if (retstat < 0)
-	perror("block_write failed");
+	perror("qblock_write failed");
     
     return retstat;
 }

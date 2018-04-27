@@ -40,9 +40,9 @@ void write_to_file(inode); //write inode to file in inode region
 
 inode read_from_file(int); //read inode from file given an index to inode region
 
-char* get_buffer(inode); //given an inode, return its data section contents as string
+void get_buffer(inode,char**); //given an inode, return its data section contents as string
 
-char* read_super();//reads super block
+void read_super(char**);//reads super block
 
 void writeToDirectory(char*, int); //updates data region for a directory inode
 
