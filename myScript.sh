@@ -1,0 +1,308 @@
+#!/bin/bash
+
+cd /tmp/laf224/mountdir
+
+touch heyThisIsAReallyLongTestFileNameAgain0.txt
+touch heyThisIsAReallyLongTestFileNameAgain1.txt
+touch heyThisIsAReallyLongTestFileNameAgain2.txt
+touch heyThisIsAReallyLongTestFileNameAgain3.txt
+touch heyThisIsAReallyLongTestFileNameAgain4.txt
+touch heyThisIsAReallyLongTestFileNameAgain5.txt
+touch heyThisIsAReallyLongTestFileNameAgain6.txt
+touch heyThisIsAReallyLongTestFileNameAgain7.txt
+touch heyThisIsAReallyLongTestFileNameAgain8.txt
+touch heyThisIsAReallyLongTestFileNameAgain9.txt
+touch heyThisIsAReallyLongTestFileNameAgain10.txt
+touch heyThisIsAReallyLongTestFileNameAgain11.txt
+touch heyThisIsAReallyLongTestFileNameAgain12.txt
+touch heyThisIsAReallyLongTestFileNameAgain13.txt
+touch heyThisIsAReallyLongTestFileNameAgain14.txt
+touch heyThisIsAReallyLongTestFileNameAgain15.txt
+touch heyThisIsAReallyLongTestFileNameAgain16.txt
+touch heyThisIsAReallyLongTestFileNameAgain17.txt
+touch heyThisIsAReallyLongTestFileNameAgain18.txt
+touch heyThisIsAReallyLongTestFileNameAgain19.txt
+touch heyThisIsAReallyLongTestFileNameAgain20.txt
+touch heyThisIsAReallyLongTestFileNameAgain21.txt
+touch heyThisIsAReallyLongTestFileNameAgain22.txt
+touch heyThisIsAReallyLongTestFileNameAgain23.txt
+touch heyThisIsAReallyLongTestFileNameAgain24.txt
+touch heyThisIsAReallyLongTestFileNameAgain25.txt
+touch heyThisIsAReallyLongTestFileNameAgain26.txt
+touch heyThisIsAReallyLongTestFileNameAgain27.txt
+touch heyThisIsAReallyLongTestFileNameAgain28.txt
+touch heyThisIsAReallyLongTestFileNameAgain29.txt
+touch heyThisIsAReallyLongTestFileNameAgain30.txt
+touch heyThisIsAReallyLongTestFileNameAgain31.txt
+touch heyThisIsAReallyLongTestFileNameAgain32.txt
+touch heyThisIsAReallyLongTestFileNameAgain33.txt
+touch heyThisIsAReallyLongTestFileNameAgain34.txt
+touch heyThisIsAReallyLongTestFileNameAgain35.txt
+touch heyThisIsAReallyLongTestFileNameAgain36.txt
+touch heyThisIsAReallyLongTestFileNameAgain37.txt
+touch heyThisIsAReallyLongTestFileNameAgain38.txt
+touch heyThisIsAReallyLongTestFileNameAgain39.txt
+touch heyThisIsAReallyLongTestFileNameAgain40.txt
+touch heyThisIsAReallyLongTestFileNameAgain41.txt
+touch heyThisIsAReallyLongTestFileNameAgain42.txt
+touch heyThisIsAReallyLongTestFileNameAgain43.txt
+touch heyThisIsAReallyLongTestFileNameAgain44.txt
+touch heyThisIsAReallyLongTestFileNameAgain45.txt
+touch heyThisIsAReallyLongTestFileNameAgain46.txt
+touch heyThisIsAReallyLongTestFileNameAgain47.txt
+touch heyThisIsAReallyLongTestFileNameAgain48.txt
+touch heyThisIsAReallyLongTestFileNameAgain49.txt
+touch heyThisIsAReallyLongTestFileNameAgain50.txt
+touch heyThisIsAReallyLongTestFileNameAgain51.txt
+touch heyThisIsAReallyLongTestFileNameAgain52.txt
+touch heyThisIsAReallyLongTestFileNameAgain53.txt
+touch heyThisIsAReallyLongTestFileNameAgain54.txt
+touch heyThisIsAReallyLongTestFileNameAgain55.txt
+touch heyThisIsAReallyLongTestFileNameAgain56.txt
+touch heyThisIsAReallyLongTestFileNameAgain57.txt
+touch heyThisIsAReallyLongTestFileNameAgain58.txt
+touch heyThisIsAReallyLongTestFileNameAgain59.txt
+touch heyThisIsAReallyLongTestFileNameAgain60.txt
+touch heyThisIsAReallyLongTestFileNameAgain61.txt
+touch heyThisIsAReallyLongTestFileNameAgain62.txt
+touch heyThisIsAReallyLongTestFileNameAgain63.txt
+touch heyThisIsAReallyLongTestFileNameAgain64.txt
+touch heyThisIsAReallyLongTestFileNameAgain65.txt
+touch heyThisIsAReallyLongTestFileNameAgain66.txt
+touch heyThisIsAReallyLongTestFileNameAgain67.txt
+touch heyThisIsAReallyLongTestFileNameAgain68.txt
+touch heyThisIsAReallyLongTestFileNameAgain69.txt
+touch heyThisIsAReallyLongTestFileNameAgain70.txt
+touch heyThisIsAReallyLongTestFileNameAgain71.txt
+touch heyThisIsAReallyLongTestFileNameAgain72.txt
+touch heyThisIsAReallyLongTestFileNameAgain73.txt
+touch heyThisIsAReallyLongTestFileNameAgain74.txt
+touch heyThisIsAReallyLongTestFileNameAgain75.txt
+touch heyThisIsAReallyLongTestFileNameAgain76.txt
+touch heyThisIsAReallyLongTestFileNameAgain77.txt
+touch heyThisIsAReallyLongTestFileNameAgain78.txt
+touch heyThisIsAReallyLongTestFileNameAgain79.txt
+touch heyThisIsAReallyLongTestFileNameAgain80.txt
+touch heyThisIsAReallyLongTestFileNameAgain81.txt
+touch heyThisIsAReallyLongTestFileNameAgain82.txt
+touch heyThisIsAReallyLongTestFileNameAgain83.txt
+touch heyThisIsAReallyLongTestFileNameAgain84.txt
+touch heyThisIsAReallyLongTestFileNameAgain85.txt
+touch heyThisIsAReallyLongTestFileNameAgain86.txt
+touch heyThisIsAReallyLongTestFileNameAgain87.txt
+touch heyThisIsAReallyLongTestFileNameAgain88.txt
+touch heyThisIsAReallyLongTestFileNameAgain89.txt
+touch heyThisIsAReallyLongTestFileNameAgain90.txt
+touch heyThisIsAReallyLongTestFileNameAgain91.txt
+touch heyThisIsAReallyLongTestFileNameAgain92.txt
+touch heyThisIsAReallyLongTestFileNameAgain93.txt
+touch heyThisIsAReallyLongTestFileNameAgain94.txt
+touch heyThisIsAReallyLongTestFileNameAgain95.txt
+touch heyThisIsAReallyLongTestFileNameAgain96.txt
+touch heyThisIsAReallyLongTestFileNameAgain97.txt
+touch heyThisIsAReallyLongTestFileNameAgain98.txt
+touch heyThisIsAReallyLongTestFileNameAgain99.txt
+touch heyThisIsAReallyLongTestFileNameAgain100.txt
+touch heyThisIsAReallyLongTestFileNameAgain101.txt
+touch heyThisIsAReallyLongTestFileNameAgain102.txt
+touch heyThisIsAReallyLongTestFileNameAgain103.txt
+touch heyThisIsAReallyLongTestFileNameAgain104.txt
+touch heyThisIsAReallyLongTestFileNameAgain105.txt
+touch heyThisIsAReallyLongTestFileNameAgain106.txt
+touch heyThisIsAReallyLongTestFileNameAgain107.txt
+touch heyThisIsAReallyLongTestFileNameAgain108.txt
+touch heyThisIsAReallyLongTestFileNameAgain109.txt
+touch heyThisIsAReallyLongTestFileNameAgain110.txt
+touch heyThisIsAReallyLongTestFileNameAgain111.txt
+touch heyThisIsAReallyLongTestFileNameAgain112.txt
+touch heyThisIsAReallyLongTestFileNameAgain113.txt
+touch heyThisIsAReallyLongTestFileNameAgain114.txt
+touch heyThisIsAReallyLongTestFileNameAgain115.txt
+touch heyThisIsAReallyLongTestFileNameAgain116.txt
+touch heyThisIsAReallyLongTestFileNameAgain117.txt
+touch heyThisIsAReallyLongTestFileNameAgain118.txt
+touch heyThisIsAReallyLongTestFileNameAgain119.txt
+touch heyThisIsAReallyLongTestFileNameAgain120.txt
+touch heyThisIsAReallyLongTestFileNameAgain121.txt
+touch heyThisIsAReallyLongTestFileNameAgain122.txt
+touch heyThisIsAReallyLongTestFileNameAgain123.txt
+touch heyThisIsAReallyLongTestFileNameAgain124.txt
+touch heyThisIsAReallyLongTestFileNameAgain125.txt
+touch heyThisIsAReallyLongTestFileNameAgain126.txt
+touch heyThisIsAReallyLongTestFileNameAgain127.txt
+touch heyThisIsAReallyLongTestFileNameAgain128.txt
+touch heyThisIsAReallyLongTestFileNameAgain129.txt
+touch heyThisIsAReallyLongTestFileNameAgain130.txt
+
+echo "1TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain0.txt
+
+echo "2TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain1.txt
+
+echo "3TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain2.txt
+
+echo "4TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain3.txt
+
+echo "5TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain4.txt
+
+echo "6TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain5.txt
+
+echo "7TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain6.txt
+
+echo "8TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain7.txt
+
+echo "9TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain8.txt
+
+echo "10TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain9.txt
+
+echo "11TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain10.txt
+
+echo "12TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain11.txt
+
+echo "13TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain12.txt
+
+echo "14TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain13.txt
+echo "15TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain14.txt
+echo "16TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain15.txt
+echo "17TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain16.txt
+
+echo "18TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain17.txt
+
+echo "19TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain18.txt
+echo "20TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain19.txt
+echo "21TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain20.txt
+
+
+echo "12TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain21.txt
+
+echo "13TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain22.txt
+
+echo "14TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain23.txt
+echo "15TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain24.txt
+echo "16TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain25.txt
+echo "17TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain26.txt
+
+echo "18TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain27.txt
+
+echo "19TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain28.txt
+echo "20TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain29.txt
+echo "21TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain30.txt
+
+
+echo "12TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain31.txt
+
+echo "13TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain32.txt
+
+echo "14TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain33.txt
+echo "15TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain34.txt
+echo "16TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain35.txt
+echo "17TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain36.txt
+
+echo "18TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain37.txt
+
+echo "19TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain38.txt
+echo "20TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain39.txt
+echo "21TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain40.txt
+
+
+echo "12TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain41.txt
+
+echo "13TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain42.txt
+
+echo "14TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain43.txt
+echo "15TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain44.txt
+echo "16TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain45.txt
+echo "17TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain46.txt
+
+echo "18TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain47.txt
+
+echo "19TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain48.txt
+echo "20TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain49.txt
+echo "21TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain50.txt
+
+
+echo "12TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain61.txt
+
+echo "13TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain62.txt
+
+echo "14TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain63.txt
+echo "15TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain64.txt
+echo "16TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain65.txt
+echo "17TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain66.txt
+
+echo "18TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain67.txt
+
+echo "19TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain68.txt
+echo "20TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain69.txt
+echo "21TESTing 123 I wont take a chance and now I am writing a really long string and contemplating my life choices and given career path Lance thinks he should have gone to New Haven and now Im going to check if we have now passed 512 bytes and that the C program was messing EVERYTHING UP AAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH jjjjjjjjjjjj AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" >> heyThisIsAReallyLongTestFileNameAgain70.txt
+
+cat heyThisIsAReallyLongTestFileNameAgain0.txt
+cat heyThisIsAReallyLongTestFileNameAgain1.txt
+cat heyThisIsAReallyLongTestFileNameAgain2.txt
+cat heyThisIsAReallyLongTestFileNameAgain3.txt
+cat heyThisIsAReallyLongTestFileNameAgain4.txt
+cat heyThisIsAReallyLongTestFileNameAgain5.txt
+cat heyThisIsAReallyLongTestFileNameAgain6.txt
+cat heyThisIsAReallyLongTestFileNameAgain7.txt
+cat heyThisIsAReallyLongTestFileNameAgain8.txt
+cat heyThisIsAReallyLongTestFileNameAgain9.txt
+cat heyThisIsAReallyLongTestFileNameAgain10.txt
+cat heyThisIsAReallyLongTestFileNameAgain11.txt
+cat heyThisIsAReallyLongTestFileNameAgain12.txt
+cat heyThisIsAReallyLongTestFileNameAgain13.txt
+cat heyThisIsAReallyLongTestFileNameAgain14.txt
+cat heyThisIsAReallyLongTestFileNameAgain15.txt
+cat heyThisIsAReallyLongTestFileNameAgain16.txt
+cat heyThisIsAReallyLongTestFileNameAgain17.txt
+cat heyThisIsAReallyLongTestFileNameAgain18.txt
+cat heyThisIsAReallyLongTestFileNameAgain19.txt
+cat heyThisIsAReallyLongTestFileNameAgain20.txt
+cat heyThisIsAReallyLongTestFileNameAgain21.txt
+cat heyThisIsAReallyLongTestFileNameAgain22.txt
+cat heyThisIsAReallyLongTestFileNameAgain23.txt
+cat heyThisIsAReallyLongTestFileNameAgain24.txt
+cat heyThisIsAReallyLongTestFileNameAgain25.txt
+cat heyThisIsAReallyLongTestFileNameAgain26.txt
+cat heyThisIsAReallyLongTestFileNameAgain27.txt
+cat heyThisIsAReallyLongTestFileNameAgain28.txt
+cat heyThisIsAReallyLongTestFileNameAgain29.txt
+cat heyThisIsAReallyLongTestFileNameAgain30.txt
+cat heyThisIsAReallyLongTestFileNameAgain31.txt
+cat heyThisIsAReallyLongTestFileNameAgain32.txt
+cat heyThisIsAReallyLongTestFileNameAgain33.txt
+cat heyThisIsAReallyLongTestFileNameAgain34.txt
+cat heyThisIsAReallyLongTestFileNameAgain35.txt
+cat heyThisIsAReallyLongTestFileNameAgain36.txt
+cat heyThisIsAReallyLongTestFileNameAgain37.txt
+cat heyThisIsAReallyLongTestFileNameAgain38.txt
+cat heyThisIsAReallyLongTestFileNameAgain39.txt
+cat heyThisIsAReallyLongTestFileNameAgain40.txt
+cat heyThisIsAReallyLongTestFileNameAgain41.txt
+cat heyThisIsAReallyLongTestFileNameAgain42.txt
+cat heyThisIsAReallyLongTestFileNameAgain43.txt
+cat heyThisIsAReallyLongTestFileNameAgain44.txt
+cat heyThisIsAReallyLongTestFileNameAgain45.txt
+cat heyThisIsAReallyLongTestFileNameAgain46.txt
+cat heyThisIsAReallyLongTestFileNameAgain47.txt
+cat heyThisIsAReallyLongTestFileNameAgain48.txt
+cat heyThisIsAReallyLongTestFileNameAgain49.txt
+cat heyThisIsAReallyLongTestFileNameAgain50.txt
+cat heyThisIsAReallyLongTestFileNameAgain51.txt
+cat heyThisIsAReallyLongTestFileNameAgain52.txt
+cat heyThisIsAReallyLongTestFileNameAgain53.txt
+cat heyThisIsAReallyLongTestFileNameAgain54.txt
+cat heyThisIsAReallyLongTestFileNameAgain55.txt
+cat heyThisIsAReallyLongTestFileNameAgain56.txt
+cat heyThisIsAReallyLongTestFileNameAgain57.txt
+cat heyThisIsAReallyLongTestFileNameAgain58.txt
+cat heyThisIsAReallyLongTestFileNameAgain59.txt
+cat heyThisIsAReallyLongTestFileNameAgain60.txt
+cat heyThisIsAReallyLongTestFileNameAgain61.txt
+cat heyThisIsAReallyLongTestFileNameAgain62.txt
+cat heyThisIsAReallyLongTestFileNameAgain63.txt
+cat heyThisIsAReallyLongTestFileNameAgain64.txt
+cat heyThisIsAReallyLongTestFileNameAgain65.txt
+cat heyThisIsAReallyLongTestFileNameAgain66.txt
+cat heyThisIsAReallyLongTestFileNameAgain67.txt
+cat heyThisIsAReallyLongTestFileNameAgain68.txt
+cat heyThisIsAReallyLongTestFileNameAgain69.txt
+cat heyThisIsAReallyLongTestFileNameAgain70.txt

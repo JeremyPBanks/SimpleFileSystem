@@ -40,9 +40,9 @@ void write_to_file(inode); //write inode to file in inode region
 
 inode read_from_file(int); //read inode from file given an index to inode region
 
-void get_buffer(inode,char**); //given an inode, return its data section contents as string
+char* get_buffer(inode); //given an inode, return its data section contents as string
 
-void read_super(char**);//reads super block
+char* read_super();//reads super block
 
 void writeToDirectory(char*, int); //updates data region for a directory inode
 
@@ -55,4 +55,5 @@ int myInodeIndex();//Grabs block index of next free inode region block
 void flipBit(int);//Flips bit on bitmap; will work for either inode or data
 
 void removeSubDir(char*,inode);//Recursviely removes all 
+
 
