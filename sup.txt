@@ -12,14 +12,11 @@ ASSUME /tmp/laf224/mountdir will exist as a 'root' in test environment. PUT THIS
 
 Add support for indirect inodes; right now we only use direct
 
-To Do Later: +  how do we handle empty blocks in the middle of a file?
-	     +  mkdir implementation ~ just call create with small modifications?
 
 Notes for emails:
 	-echoing to a file that doesn't exist, right now it creates the file but should it actually write to it???
-	-buffer sizes bigger than 4kb, should we be writing the whole thing?
-	-check directory permission? If so, where?
-	-Should every directory contain its parent?
+		+UPDATE: fixed this one
+	-cat from one file to another reports 'Bad Address' error, but otherwise works perfectly fine. Should we worry about this?
 
 
 ***Design Decision***:	Keep writing until data is filled (check as we go, not all at once)
@@ -28,10 +25,3 @@ Notes for emails:
 ps -ef | grep sfs
 gdb attach 20319
 ./sfs -s...
-
-Terminal Commands
-Traversal: cd
-Create File: touch
-
-
-TODO::we're cutting off the front of string on unlink...
